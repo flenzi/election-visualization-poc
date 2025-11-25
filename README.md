@@ -1,9 +1,10 @@
 # Election Results Map Visualization - Spain
 
-An interactive web-based visualization of Spanish election results using Leaflet.js. This proof-of-concept (POC) displays the 2023 general election results on a choropleth map of Spain's autonomous communities.
+An interactive web-based visualization of Spanish election results with **two implementations**: Leaflet.js and D3.js + TopoJSON. This proof-of-concept (POC) displays the 2023 general election results on a choropleth map of Spain's autonomous communities.
 
 ## Features
 
+### Common Features (Both Implementations)
 - **Interactive Map**: Explore election results across all 19 Spanish regions (17 autonomous communities + Ceuta & Melilla)
 - **Choropleth Visualization**: Regions colored by winning party
 - **Detailed Results Panel**: Click on any region to see detailed election statistics
@@ -11,44 +12,95 @@ An interactive web-based visualization of Spanish election results using Leaflet
 - **Party Legend**: Visual reference for political parties and their colors
 - **Hover Tooltips**: Quick region identification on hover
 
+### Implementation-Specific Features
+
+**Leaflet.js Version:**
+- Lightweight and fast (~40KB library)
+- Tile-based map controls
+- Standard zoom and pan controls
+- Optimized for mobile devices
+
+**D3.js Version:**
+- Advanced data visualization (~260KB library)
+- **Auto-zoom to selected region** with smooth animations
+- TopoJSON format (58% smaller data files)
+- SVG-based rendering
+- Greater customization potential
+
 ## Live Demo
 
 View the live demo: **[https://flenzi.github.io/election-visualization-poc/](https://flenzi.github.io/election-visualization-poc/)**
 
+- **Main Page**: Choose between implementations
+- **Leaflet Version**: [https://flenzi.github.io/election-visualization-poc/leaflet.html](https://flenzi.github.io/election-visualization-poc/leaflet.html)
+- **D3.js Version**: [https://flenzi.github.io/election-visualization-poc/d3.html](https://flenzi.github.io/election-visualization-poc/d3.html)
+
 ## Technologies Used
 
-- **Leaflet 1.9.4**: Interactive mapping library
+### Leaflet Implementation
+- **Leaflet 1.9.4**: Lightweight interactive mapping library (40KB)
+- **GeoJSON**: Standard geographic data format (659KB)
 - **Vanilla JavaScript**: No framework dependencies
 - **CSS3**: Modern styling with CSS custom properties
-- **GeoJSON**: Geographic boundary data for Spanish regions
+
+### D3.js Implementation
+- **D3.js v7**: Powerful data visualization library (260KB)
+- **TopoJSON**: Optimized topology-preserving format (272KB - 58% smaller than GeoJSON)
+- **Vanilla JavaScript**: No framework dependencies
+- **CSS3**: Shared styling with Leaflet version
 
 ## Project Structure
 
 ```
 election-visualization-poc/
-├── index.html                  # Main HTML file
+├── index.html                       # Main landing page (implementation selector)
+├── leaflet.html                     # Leaflet.js implementation
+├── d3.html                          # D3.js implementation
 ├── css/
-│   └── styles.css             # Application styles
+│   └── styles.css                   # Shared application styles
 ├── js/
-│   ├── app.js                 # Main application logic
-│   ├── map.js                 # Map rendering and interactions
-│   └── data-loader.js         # Data loading and processing
+│   ├── data-loader.js              # Shared data fetching and processing
+│   ├── app.js                      # Leaflet application logic
+│   ├── map.js                      # Leaflet map rendering
+│   ├── d3-app.js                   # D3 application logic
+│   └── d3-map.js                   # D3 map rendering
 ├── data/
 │   ├── geo/
-│   │   └── spain-comunidades.json  # GeoJSON boundaries
+│   │   ├── spain-comunidades.json      # GeoJSON (659KB) - for Leaflet
+│   │   └── spain-comunidades.topojson  # TopoJSON (272KB) - for D3
 │   └── elections/
-│       └── 2023-generales.json     # Election results data
-├── assets/                    # Static assets
+│       └── 2023-generales.json         # Election results data
+├── assets/                          # Static assets
 └── README.md
 ```
+
+## Implementation Comparison
+
+| Feature | Leaflet.js | D3.js |
+|---------|-----------|-------|
+| **Library Size** | ~40KB | ~260KB |
+| **Data Format** | GeoJSON (659KB) | TopoJSON (272KB) |
+| **Total Load Size** | ~699KB | ~532KB |
+| **Rendering** | Canvas/SVG hybrid | Pure SVG |
+| **Zoom to Region** | Manual | Automatic on click |
+| **Best For** | General use, mobile | Advanced visualizations |
+| **Learning Curve** | Easy | Moderate |
+| **Customization** | Good | Excellent |
+
+**Winner for file size**: D3.js (24% smaller total load)
+**Winner for simplicity**: Leaflet.js (easier to use)
+**Winner for features**: D3.js (more powerful)
 
 ## Data Sources
 
 ### Geographic Boundaries
-- **Source**: Aggregated from province-level data
-- **Format**: GeoJSON (RFC 7946)
+- **Source**: codeforgermany/click_that_hood (high-quality community data)
+- **Formats**:
+  - GeoJSON (RFC 7946) - 659KB - for Leaflet
+  - TopoJSON - 272KB (58% reduction) - for D3
 - **Coordinate System**: WGS84 (EPSG:4326)
 - **Regions**: All 19 Spanish regions (17 Autonomous Communities + Ceuta & Melilla)
+- **Quality**: 23,179 coordinate points total across all regions
 
 ### Election Data
 - **Election**: 2023 Spanish General Elections (Congreso de los Diputados)

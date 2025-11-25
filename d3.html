@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Resultados Electorales - España (D3.js)</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* D3-specific styles */
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .region {
+            transition: filter 0.2s ease;
+        }
+
+        .region:hover {
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Mapa de Resultados Electorales - España 2023</h1>
+            <p class="subtitle">Elecciones Generales - Congreso de los Diputados (D3.js + TopoJSON)</p>
+            <div style="margin-top: 0.5rem;">
+                <a href="index.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
+                    ← Volver a inicio
+                </a>
+                <span style="color: rgba(255,255,255,0.5); margin: 0 0.5rem;">|</span>
+                <a href="leaflet.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
+                    Ver versión Leaflet
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Map Container -->
+            <div id="map"></div>
+
+            <!-- Results Panel -->
+            <aside class="results-panel" id="resultsPanel">
+                <div class="panel-header">
+                    <h2>Resultados</h2>
+                </div>
+                <div class="panel-content" id="panelContent">
+                    <p class="info-text">Haz clic en una comunidad autónoma para ver los resultados detallados</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend" id="legend">
+            <h3>Partidos</h3>
+            <div class="legend-items" id="legendItems"></div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Cargando datos...</p>
+        </div>
+    </div>
+
+    <!-- D3.js Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+
+    <!-- Application JS -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/d3-map.js"></script>
+    <script src="js/d3-app.js"></script>
+</body>
+</html>

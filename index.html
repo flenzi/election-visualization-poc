@@ -3,61 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Resultados Electorales - España</title>
+    <title>Election Results Map - Spain 2023</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin=""/>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #333;
+        }
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .implementations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .card .tech-stack {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .card .features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .card .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .card .features li:last-child {
+            border-bottom: none;
+        }
+
+        .card .features li::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+        }
+
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .comparison-table td {
+            color: #666;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .implementations {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>Mapa de Resultados Electorales - España 2023</h1>
-            <p class="subtitle">Elecciones Generales - Congreso de los Diputados</p>
-        </header>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Map Container -->
-            <div id="map"></div>
-
-            <!-- Results Panel -->
-            <aside class="results-panel" id="resultsPanel">
-                <div class="panel-header">
-                    <h2>Resultados</h2>
-                </div>
-                <div class="panel-content" id="panelContent">
-                    <p class="info-text">Haz clic en una comunidad autónoma para ver los resultados detallados</p>
-                </div>
-            </aside>
+        <div class="hero">
+            <h1>🗳️ Mapa de Resultados Electorales</h1>
+            <p>España - Elecciones Generales 2023</p>
+            <p class="subtitle">Visualización Interactiva del Congreso de los Diputados</p>
         </div>
 
-        <!-- Legend -->
-        <div class="legend" id="legend">
-            <h3>Partidos</h3>
-            <div class="legend-items" id="legendItems"></div>
+        <div class="implementations">
+            <!-- Leaflet Implementation -->
+            <a href="leaflet.html" class="card">
+                <div class="card-icon">🗺️</div>
+                <h2>Leaflet.js</h2>
+                <div class="tech-stack">Leaflet 1.9.4 + GeoJSON</div>
+                <p>Visualización ligera y rápida con la biblioteca de mapas más popular. Ideal para visualizaciones estándar con controles intuitivos.</p>
+
+                <ul class="features">
+                    <li>Zoom y navegación fluidos</li>
+                    <li>Tooltips informativos al pasar el ratón</li>
+                    <li>Click para detalles de región</li>
+                    <li>Optimizado para móvil</li>
+                </ul>
+
+                <span class="btn">Abrir Mapa Leaflet →</span>
+            </a>
+
+            <!-- D3.js Implementation -->
+            <a href="d3.html" class="card">
+                <div class="card-icon">📊</div>
+                <h2>D3.js</h2>
+                <div class="tech-stack">D3.js v7 + TopoJSON</div>
+                <p>Visualización avanzada con D3.js, la biblioteca de visualización de datos más potente. Incluye zoom automático a regiones.</p>
+
+                <ul class="features">
+                    <li>Zoom automático a región seleccionada</li>
+                    <li>TopoJSON optimizado (58% más pequeño)</li>
+                    <li>Animaciones suaves</li>
+                    <li>Mayor personalización</li>
+                </ul>
+
+                <span class="btn">Abrir Mapa D3.js →</span>
+            </a>
         </div>
 
-        <!-- Loading Overlay -->
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="spinner"></div>
-            <p>Cargando datos...</p>
+        <!-- Info Section -->
+        <div class="info-section">
+            <h3>Comparación de Implementaciones</h3>
+            <p>Ambas visualizaciones muestran los mismos datos electorales, pero utilizan diferentes tecnologías de rendering:</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Leaflet.js</th>
+                        <th>D3.js</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Biblioteca</strong></td>
+                        <td>Leaflet 1.9.4 (40KB)</td>
+                        <td>D3.js v7 (260KB)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Formato de Datos</strong></td>
+                        <td>GeoJSON (659KB)</td>
+                        <td>TopoJSON (272KB)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rendering</strong></td>
+                        <td>Canvas/SVG híbrido</td>
+                        <td>SVG puro</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Zoom a Región</strong></td>
+                        <td>Manual</td>
+                        <td>Automático al click</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ventajas</strong></td>
+                        <td>Más ligero, más rápido para carga inicial</td>
+                        <td>Más flexible, archivos más pequeños</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mejor Para</strong></td>
+                        <td>Uso general, móviles</td>
+                        <td>Visualizaciones avanzadas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 1rem;">
+                <strong>Dato Técnico:</strong> El TopoJSON reduce el tamaño del archivo en un 58% eliminando redundancia en
+                fronteras compartidas y usando topología de arcos. Ambas implementaciones incluyen los mismos 19 regiones con
+                geometrías detalladas.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>
+                Proyecto POC - Visualización de Resultados Electorales<br>
+                <a href="https://github.com/flenzi/election-visualization-poc" target="_blank">Ver en GitHub</a>
+            </p>
         </div>
     </div>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-
-    <!-- Application JS -->
-    <script src="js/data-loader.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/app.js"></script>
 </body>
 </html>
