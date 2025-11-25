@@ -233,14 +233,14 @@ header h1 {
 
 /* Legend */
 .legend {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     left: 2rem;
     background: var(--bg-primary);
     padding: 1rem 1.25rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
+    z-index: 1001;
     min-width: 180px;
 }
 
@@ -273,14 +273,14 @@ header h1 {
 
 /* Regions List */
 .regions-list {
-    position: absolute;
-    top: 2rem;
+    position: fixed;
+    top: 120px;
     right: 2rem;
     background: var(--bg-primary);
     padding: 1rem 1.25rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
+    z-index: 1001;
     min-width: 200px;
     max-width: 250px;
     max-height: calc(100vh - 250px);

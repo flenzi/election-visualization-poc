@@ -26,6 +26,21 @@
         .maplibregl-ctrl-logo {
             display: none !important;
         }
+
+        /* Ensure legend and regions list are above map */
+        .maplibregl-canvas-container {
+            z-index: 0 !important;
+        }
+
+        .maplibregl-canvas {
+            z-index: 0 !important;
+        }
+
+        .legend,
+        .regions-list {
+            z-index: 1001 !important;
+            pointer-events: auto !important;
+        }
     </style>
 </head>
 <body>
