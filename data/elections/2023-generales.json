@@ -291,6 +291,38 @@
       },
       "winner": "PP"
     },
+    "ES-CN": {
+      "name": "Islas Canarias",
+      "turnout": 62.3,
+      "parties": {
+        "PSOE": {
+          "votes": 285000,
+          "percentage": 28.5,
+          "seats": 5
+        },
+        "PP": {
+          "votes": 245000,
+          "percentage": 24.5,
+          "seats": 4
+        },
+        "CC": {
+          "votes": 185000,
+          "percentage": 18.5,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 125000,
+          "percentage": 12.5,
+          "seats": 2
+        },
+        "VOX": {
+          "votes": 98000,
+          "percentage": 9.8,
+          "seats": 1
+        }
+      },
+      "winner": "PSOE"
+    },
     "ES-LO": {
       "name": "La Rioja",
       "turnout": 69.8,

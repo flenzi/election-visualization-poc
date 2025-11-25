@@ -4,7 +4,7 @@ An interactive web-based visualization of Spanish election results using Leaflet
 
 ## Features
 
-- **Interactive Map**: Explore election results across Spain's 17 autonomous communities
+- **Interactive Map**: Explore election results across all 19 Spanish regions (17 autonomous communities + Ceuta & Melilla)
 - **Choropleth Visualization**: Regions colored by winning party
 - **Detailed Results Panel**: Click on any region to see detailed election statistics
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
@@ -13,7 +13,7 @@ An interactive web-based visualization of Spanish election results using Leaflet
 
 ## Live Demo
 
-View the live demo: [GitHub Pages URL will be here after deployment]
+View the live demo: **[https://flenzi.github.io/election-visualization-poc/](https://flenzi.github.io/election-visualization-poc/)**
 
 ## Technologies Used
 
@@ -48,7 +48,7 @@ election-visualization-poc/
 - **Source**: Aggregated from province-level data
 - **Format**: GeoJSON (RFC 7946)
 - **Coordinate System**: WGS84 (EPSG:4326)
-- **Regions**: 17 Autonomous Communities + Ceuta & Melilla
+- **Regions**: All 19 Spanish regions (17 Autonomous Communities + Ceuta & Melilla)
 
 ### Election Data
 - **Election**: 2023 Spanish General Elections (Congreso de los Diputados)
@@ -202,10 +202,10 @@ getPartyColor(party) {
 
 ## Known Limitations
 
-- Canary Islands (ES-CN) not included in current GeoJSON boundaries
-- Sample election data (not real-time)
+- Sample election data based on 2023 results (not real-time)
 - No municipality-level detail (only autonomous communities)
 - Static data (no automatic updates)
+- Simplified island geometries for Canary Islands
 
 ## Future Enhancements
 
