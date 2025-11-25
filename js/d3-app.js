@@ -38,7 +38,7 @@ const D3App = {
             );
         } catch (error) {
             console.error('Error loading data:', error);
-            throw new Error('No se pudieron cargar los datos. Por favor, verifica que los archivos existen.');
+            throw new Error('Could not load data. Please verify that the files exist.');
         }
     },
 

@@ -28,7 +28,8 @@ const D3Map = {
             .attr('height', height)
             .attr('viewBox', [0, 0, width, height])
             .style('max-width', '100%')
-            .style('height', 'auto');
+            .style('height', 'auto')
+            .style('display', 'block');
 
         // Add background
         this.svg.append('rect')
@@ -40,11 +41,8 @@ const D3Map = {
         // Create group for map features
         this.g = this.svg.append('g');
 
-        // Create projection centered on Spain
-        this.projection = d3.geoMercator()
-            .center([-3.7, 40.4])
-            .scale(2500)
-            .translate([width / 2, height / 2]);
+        // Create projection centered on Spain (will be adjusted after data load)
+        this.projection = d3.geoMercator();
 
         // Create path generator
         this.path = d3.geoPath().projection(this.projection);
@@ -127,6 +125,12 @@ const D3Map = {
      * Render the map
      */
     renderMap(geojson) {
+        // Fit projection to bounds
+        this.projection.fitSize(
+            [this.svg.node().clientWidth, this.svg.node().clientHeight],
+            geojson
+        );
+
         // Draw regions
         const regions = this.g.selectAll('path')
             .data(geojson.features)
@@ -145,7 +149,7 @@ const D3Map = {
         // Add tooltips
         regions.append('title')
             .text(d => {
-                const name = d.properties.electionData?.name || d.properties.name || 'Región';
+                const name = d.properties.electionData?.name || d.properties.name || 'Region';
                 return name;
             });
     },
@@ -243,7 +247,7 @@ const D3Map = {
             document.getElementById('panelContent').innerHTML = `
                 <div class="region-detail">
                     <h2 class="region-name">${name}</h2>
-                    <p class="info-text">No hay datos disponibles para esta región</p>
+                    <p class="info-text">No data available for this region</p>
                 </div>
             `;
             return;
@@ -262,17 +266,17 @@ const D3Map = {
 
                 <div class="region-stats">
                     <div class="stat-item">
-                        <div class="stat-label">Participación</div>
+                        <div class="stat-label">Turnout</div>
                         <div class="stat-value">${DataLoader.formatPercentage(electionData.turnout || 0)}</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">Total Votos</div>
+                        <div class="stat-label">Total Votes</div>
                         <div class="stat-value">${DataLoader.formatNumber(totalVotes)}</div>
                     </div>
                 </div>
 
                 <div class="party-results">
-                    <h3>Resultados por Partido</h3>
+                    <h3>Results by Party</h3>
         `;
 
         parties.forEach(([partyCode, partyData]) => {
@@ -284,8 +288,8 @@ const D3Map = {
                         <div class="party-name">${partyCode}</div>
                         <div class="party-stats">
                             <span class="party-percentage">${DataLoader.formatPercentage(partyData.percentage)}</span>
-                            <span>${DataLoader.formatNumber(partyData.votes)} votos</span>
-                            ${partyData.seats ? `<span>${partyData.seats} escaños</span>` : ''}
+                            <span>${DataLoader.formatNumber(partyData.votes)} votes</span>
+                            ${partyData.seats ? `<span>${partyData.seats} seats</span>` : ''}
                         </div>
                     </div>
                 </div>

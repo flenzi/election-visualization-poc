@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Resultados Electorales - España</title>
+    <title>Election Results Map - Spain (Leaflet)</title>
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -17,15 +17,15 @@
     <div class="container">
         <!-- Header -->
         <header>
-            <h1>Mapa de Resultados Electorales - España 2023</h1>
-            <p class="subtitle">Elecciones Generales - Congreso de los Diputados (Leaflet.js)</p>
+            <h1>Election Results Map - Spain 2023</h1>
+            <p class="subtitle">General Elections - Congress of Deputies (Leaflet.js)</p>
             <div style="margin-top: 0.5rem;">
                 <a href="index.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
-                    ← Volver a inicio
+                    ← Back to home
                 </a>
                 <span style="color: rgba(255,255,255,0.5); margin: 0 0.5rem;">|</span>
                 <a href="d3.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
-                    Ver versión D3.js
+                    View D3.js version
                 </a>
             </div>
         </header>
@@ -38,24 +38,24 @@
             <!-- Results Panel -->
             <aside class="results-panel" id="resultsPanel">
                 <div class="panel-header">
-                    <h2>Resultados</h2>
+                    <h2>Results</h2>
                 </div>
                 <div class="panel-content" id="panelContent">
-                    <p class="info-text">Haz clic en una comunidad autónoma para ver los resultados detallados</p>
+                    <p class="info-text">Click on an autonomous community to see detailed results</p>
                 </div>
             </aside>
         </div>
 
         <!-- Legend -->
         <div class="legend" id="legend">
-            <h3>Partidos</h3>
+            <h3>Parties</h3>
             <div class="legend-items" id="legendItems"></div>
         </div>
 
         <!-- Loading Overlay -->
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
-            <p>Cargando datos...</p>
+            <p>Loading data...</p>
         </div>
     </div>
 

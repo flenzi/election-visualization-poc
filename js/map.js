@@ -169,7 +169,7 @@ const ElectionMap = {
             document.getElementById('panelContent').innerHTML = `
                 <div class="region-detail">
                     <h2 class="region-name">${name}</h2>
-                    <p class="info-text">No hay datos disponibles para esta región</p>
+                    <p class="info-text">No data available for this region</p>
                 </div>
             `;
             return;
@@ -188,17 +188,17 @@ const ElectionMap = {
 
                 <div class="region-stats">
                     <div class="stat-item">
-                        <div class="stat-label">Participación</div>
+                        <div class="stat-label">Turnout</div>
                         <div class="stat-value">${DataLoader.formatPercentage(electionData.turnout || 0)}</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">Total Votos</div>
+                        <div class="stat-label">Total Votes</div>
                         <div class="stat-value">${DataLoader.formatNumber(totalVotes)}</div>
                     </div>
                 </div>
 
                 <div class="party-results">
-                    <h3>Resultados por Partido</h3>
+                    <h3>Results by Party</h3>
         `;
 
         parties.forEach(([partyCode, partyData]) => {
@@ -210,8 +210,8 @@ const ElectionMap = {
                         <div class="party-name">${partyCode}</div>
                         <div class="party-stats">
                             <span class="party-percentage">${DataLoader.formatPercentage(partyData.percentage)}</span>
-                            <span>${DataLoader.formatNumber(partyData.votes)} votos</span>
-                            ${partyData.seats ? `<span>${partyData.seats} escaños</span>` : ''}
+                            <span>${DataLoader.formatNumber(partyData.votes)} votes</span>
+                            ${partyData.seats ? `<span>${partyData.seats} seats</span>` : ''}
                         </div>
                     </div>
                 </div>
