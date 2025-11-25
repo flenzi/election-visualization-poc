@@ -171,8 +171,11 @@ const MapLibreMap = {
         // Store selected feature
         this.selectedFeatureId = regionCode;
 
+        // Get election data for this region
+        const electionData = this.currentElectionData?.results?.[regionCode];
+
         // Display results in panel
-        this.displayResults(properties);
+        this.displayResults(regionCode, electionData, properties);
 
         // Fly to the region
         const bounds = this.getFeatureBounds(feature);
@@ -215,9 +218,8 @@ const MapLibreMap = {
     /**
      * Display results in panel
      */
-    displayResults(properties) {
-        const electionData = properties.electionData;
-        const name = electionData?.name || properties.name || 'Region';
+    displayResults(regionCode, electionData, properties) {
+        const name = electionData?.name || properties?.name || 'Region';
 
         if (!electionData) {
             document.getElementById('panelContent').innerHTML = `
