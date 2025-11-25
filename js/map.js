@@ -169,10 +169,10 @@ const ElectionMap = {
         const bounds = layer.getBounds();
 
         // Account for the 350px results panel on the right
-        // Use asymmetric padding: less on left, more on right
+        // Use asymmetric padding: minimal on left, large on right
         this.map.flyToBounds(bounds, {
-            paddingTopLeft: [20, 50],     // Small padding on left
-            paddingBottomRight: [400, 50], // Large padding on right for panel
+            paddingTopLeft: [50, 50],     // Minimal padding on left
+            paddingBottomRight: [450, 50], // Large padding on right (350px panel + margin)
             maxZoom: 8,
             duration: 1.5
         });

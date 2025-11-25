@@ -201,9 +201,11 @@ const MapLibreMap = {
         // Fly to the region
         const bounds = this.getFeatureBounds(feature);
         if (bounds) {
+            // Results panel is on the RIGHT, so more padding on right
             this.map.fitBounds(bounds, {
-                padding: {top: 100, bottom: 100, left: 400, right: 100},
-                duration: 1000
+                padding: {top: 100, bottom: 100, left: 50, right: 450},
+                duration: 1500,
+                maxZoom: 8
             });
         }
     },
