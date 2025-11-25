@@ -158,10 +158,16 @@
             margin-bottom: 1rem;
         }
 
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            min-width: 500px;
         }
 
         .comparison-table th,
@@ -205,6 +211,20 @@
 
             .implementations {
                 grid-template-columns: 1fr;
+            }
+
+            .info-section {
+                padding: 1.5rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .comparison-table {
+                min-width: 550px;
             }
         }
     </style>
@@ -258,7 +278,8 @@
             <h3>Implementation Comparison</h3>
             <p>Both visualizations show the same election data, but use different rendering technologies:</p>
 
-            <table class="comparison-table">
+            <div class="table-wrapper">
+                <table class="comparison-table">
                 <thead>
                     <tr>
                         <th>Feature</th>
@@ -299,6 +320,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
 
             <p style="margin-top: 1rem;">
                 <strong>Technical Note:</strong> MapLibre GL JS uses WebGL for hardware-accelerated rendering, making it
