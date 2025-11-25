@@ -1,6 +1,6 @@
 # Election Results Map Visualization - Spain
 
-An interactive web-based visualization of Spanish election results with **two implementations**: Leaflet.js and D3.js + TopoJSON. This proof-of-concept (POC) displays the 2023 general election results on a choropleth map of Spain's autonomous communities.
+An interactive web-based visualization of Spanish election results with **two implementations**: Leaflet.js and MapLibre GL JS. This proof-of-concept (POC) displays the 2023 general election results on a choropleth map of Spain's autonomous communities.
 
 ## Features
 
@@ -20,12 +20,13 @@ An interactive web-based visualization of Spanish election results with **two im
 - Standard zoom and pan controls
 - Optimized for mobile devices
 
-**D3.js Version:**
-- Advanced data visualization (~260KB library)
-- **Auto-zoom to selected region** with smooth animations
-- TopoJSON format (58% smaller data files)
-- SVG-based rendering
-- Greater customization potential
+**MapLibre GL JS Version:**
+- Modern WebGL-powered rendering (~700KB library)
+- **Auto-fly to selected region** with smooth animations
+- Hardware-accelerated graphics (GPU)
+- Vector-based rendering
+- OpenStreetMap base layer
+- Excellent performance with large datasets
 
 ## Live Demo
 
@@ -33,7 +34,7 @@ View the live demo: **[https://flenzi.github.io/election-visualization-poc/](htt
 
 - **Main Page**: Choose between implementations
 - **Leaflet Version**: [https://flenzi.github.io/election-visualization-poc/leaflet.html](https://flenzi.github.io/election-visualization-poc/leaflet.html)
-- **D3.js Version**: [https://flenzi.github.io/election-visualization-poc/d3.html](https://flenzi.github.io/election-visualization-poc/d3.html)
+- **MapLibre GL JS Version**: [https://flenzi.github.io/election-visualization-poc/maplibre.html](https://flenzi.github.io/election-visualization-poc/maplibre.html)
 
 ## Technologies Used
 
@@ -43,9 +44,10 @@ View the live demo: **[https://flenzi.github.io/election-visualization-poc/](htt
 - **Vanilla JavaScript**: No framework dependencies
 - **CSS3**: Modern styling with CSS custom properties
 
-### D3.js Implementation
-- **D3.js v7**: Powerful data visualization library (260KB)
-- **TopoJSON**: Optimized topology-preserving format (272KB - 58% smaller than GeoJSON)
+### MapLibre GL JS Implementation
+- **MapLibre GL JS 3.6**: Modern WebGL mapping library (700KB)
+- **GeoJSON**: Standard geographic data format (659KB)
+- **OpenStreetMap**: Base map tiles for context
 - **Vanilla JavaScript**: No framework dependencies
 - **CSS3**: Shared styling with Leaflet version
 
@@ -55,49 +57,49 @@ View the live demo: **[https://flenzi.github.io/election-visualization-poc/](htt
 election-visualization-poc/
 ├── index.html                       # Main landing page (implementation selector)
 ├── leaflet.html                     # Leaflet.js implementation
-├── d3.html                          # D3.js implementation
+├── maplibre.html                    # MapLibre GL JS implementation
 ├── css/
 │   └── styles.css                   # Shared application styles
 ├── js/
 │   ├── data-loader.js              # Shared data fetching and processing
 │   ├── app.js                      # Leaflet application logic
 │   ├── map.js                      # Leaflet map rendering
-│   ├── d3-app.js                   # D3 application logic
-│   └── d3-map.js                   # D3 map rendering
+│   ├── maplibre-app.js             # MapLibre application logic
+│   └── maplibre-map.js             # MapLibre map rendering
 ├── data/
 │   ├── geo/
-│   │   ├── spain-comunidades.json      # GeoJSON (659KB) - for Leaflet
-│   │   └── spain-comunidades.topojson  # TopoJSON (272KB) - for D3
+│   │   └── spain-comunidades.json  # GeoJSON (659KB) - for both implementations
 │   └── elections/
-│       └── 2023-generales.json         # Election results data
+│       └── 2023-generales.json     # Election results data
 ├── assets/                          # Static assets
 └── README.md
 ```
 
 ## Implementation Comparison
 
-| Feature | Leaflet.js | D3.js |
-|---------|-----------|-------|
-| **Library Size** | ~40KB | ~260KB |
-| **Data Format** | GeoJSON (659KB) | TopoJSON (272KB) |
-| **Total Load Size** | ~699KB | ~532KB |
-| **Rendering** | Canvas/SVG hybrid | Pure SVG |
-| **Zoom to Region** | Manual | Automatic on click |
-| **Best For** | General use, mobile | Advanced visualizations |
+| Feature | Leaflet.js | MapLibre GL JS |
+|---------|-----------|----------------|
+| **Library Size** | ~40KB | ~700KB |
+| **Data Format** | GeoJSON (659KB) | GeoJSON (659KB) |
+| **Total Load Size** | ~699KB | ~1359KB |
+| **Rendering** | Canvas/SVG hybrid | WebGL (GPU accelerated) |
+| **Animation** | Basic | Smooth, hardware accelerated |
+| **Fly to Region** | Manual | Automatic on click |
+| **Base Map** | Optional | OpenStreetMap included |
+| **Performance** | Good for medium datasets | Excellent for large datasets |
+| **Best For** | General use, simplicity | Modern apps, performance |
 | **Learning Curve** | Easy | Moderate |
 | **Customization** | Good | Excellent |
 
-**Winner for file size**: D3.js (24% smaller total load)
-**Winner for simplicity**: Leaflet.js (easier to use)
-**Winner for features**: D3.js (more powerful)
+**Winner for simplicity**: Leaflet.js (lighter, easier to use)
+**Winner for performance**: MapLibre GL JS (GPU acceleration, smooth animations)
+**Winner for features**: MapLibre GL JS (WebGL rendering, better animations)
 
 ## Data Sources
 
 ### Geographic Boundaries
 - **Source**: codeforgermany/click_that_hood (high-quality community data)
-- **Formats**:
-  - GeoJSON (RFC 7946) - 659KB - for Leaflet
-  - TopoJSON - 272KB (58% reduction) - for D3
+- **Format**: GeoJSON (RFC 7946) - 659KB - used by both implementations
 - **Coordinate System**: WGS84 (EPSG:4326)
 - **Regions**: All 19 Spanish regions (17 Autonomous Communities + Ceuta & Melilla)
 - **Quality**: 23,179 coordinate points total across all regions
@@ -288,8 +290,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 - **Leaflet**: For the excellent mapping library
+- **MapLibre GL JS**: For the modern WebGL mapping library
 - **OpenStreetMap**: For base map tiles
-- **Province GeoJSON**: From [adbcs/Geojson](https://github.com/adbcs/Geojson)
+- **codeforgermany/click_that_hood**: For high-quality GeoJSON data
 - Election data structure inspired by real 2023 Spanish general election results
 
 ## Contact

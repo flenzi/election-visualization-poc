@@ -212,9 +212,9 @@
 <body>
     <div class="container">
         <div class="hero">
-            <h1>🗳️ Mapa de Resultados Electorales</h1>
-            <p>España - Elecciones Generales 2023</p>
-            <p class="subtitle">Visualización Interactiva del Congreso de los Diputados</p>
+            <h1>🗳️ Election Results Map</h1>
+            <p>Spain - General Elections 2023</p>
+            <p class="subtitle">Interactive Visualization of Congress of Deputies</p>
         </div>
 
         <div class="implementations">
@@ -223,94 +223,94 @@
                 <div class="card-icon">🗺️</div>
                 <h2>Leaflet.js</h2>
                 <div class="tech-stack">Leaflet 1.9.4 + GeoJSON</div>
-                <p>Visualización ligera y rápida con la biblioteca de mapas más popular. Ideal para visualizaciones estándar con controles intuitivos.</p>
+                <p>Lightweight and fast visualization with the most popular mapping library. Simple, intuitive controls perfect for general use.</p>
 
                 <ul class="features">
-                    <li>Zoom y navegación fluidos</li>
-                    <li>Tooltips informativos al pasar el ratón</li>
-                    <li>Click para detalles de región</li>
-                    <li>Optimizado para móvil</li>
+                    <li>Smooth zoom and pan navigation</li>
+                    <li>Informative hover tooltips</li>
+                    <li>Click for detailed region info</li>
+                    <li>Mobile optimized</li>
                 </ul>
 
-                <span class="btn">Abrir Mapa Leaflet →</span>
+                <span class="btn">Open Leaflet Map →</span>
             </a>
 
-            <!-- D3.js Implementation -->
-            <a href="d3.html" class="card">
-                <div class="card-icon">📊</div>
-                <h2>D3.js</h2>
-                <div class="tech-stack">D3.js v7 + TopoJSON</div>
-                <p>Visualización avanzada con D3.js, la biblioteca de visualización de datos más potente. Incluye zoom automático a regiones.</p>
+            <!-- MapLibre GL JS Implementation -->
+            <a href="maplibre.html" class="card">
+                <div class="card-icon">🚀</div>
+                <h2>MapLibre GL JS</h2>
+                <div class="tech-stack">MapLibre GL JS 3.6 + GeoJSON</div>
+                <p>Modern WebGL-powered visualization with smooth animations. Vector-based rendering for excellent performance with large datasets.</p>
 
                 <ul class="features">
-                    <li>Zoom automático a región seleccionada</li>
-                    <li>TopoJSON optimizado (58% más pequeño)</li>
-                    <li>Animaciones suaves</li>
-                    <li>Mayor personalización</li>
+                    <li>WebGL hardware acceleration</li>
+                    <li>Smooth animated transitions</li>
+                    <li>Auto-fly to selected region</li>
+                    <li>OpenStreetMap base layer</li>
                 </ul>
 
-                <span class="btn">Abrir Mapa D3.js →</span>
+                <span class="btn">Open MapLibre Map →</span>
             </a>
         </div>
 
         <!-- Info Section -->
         <div class="info-section">
-            <h3>Comparación de Implementaciones</h3>
-            <p>Ambas visualizaciones muestran los mismos datos electorales, pero utilizan diferentes tecnologías de rendering:</p>
+            <h3>Implementation Comparison</h3>
+            <p>Both visualizations show the same election data, but use different rendering technologies:</p>
 
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Característica</th>
+                        <th>Feature</th>
                         <th>Leaflet.js</th>
-                        <th>D3.js</th>
+                        <th>MapLibre GL JS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Biblioteca</strong></td>
+                        <td><strong>Library</strong></td>
                         <td>Leaflet 1.9.4 (40KB)</td>
-                        <td>D3.js v7 (260KB)</td>
+                        <td>MapLibre GL JS 3.6 (700KB)</td>
                     </tr>
                     <tr>
-                        <td><strong>Formato de Datos</strong></td>
+                        <td><strong>Data Format</strong></td>
                         <td>GeoJSON (659KB)</td>
-                        <td>TopoJSON (272KB)</td>
+                        <td>GeoJSON (659KB)</td>
                     </tr>
                     <tr>
                         <td><strong>Rendering</strong></td>
-                        <td>Canvas/SVG híbrido</td>
-                        <td>SVG puro</td>
+                        <td>Canvas/SVG hybrid</td>
+                        <td>WebGL (GPU accelerated)</td>
                     </tr>
                     <tr>
-                        <td><strong>Zoom a Región</strong></td>
-                        <td>Manual</td>
-                        <td>Automático al click</td>
+                        <td><strong>Animation</strong></td>
+                        <td>Basic</td>
+                        <td>Smooth, hardware accelerated</td>
                     </tr>
                     <tr>
-                        <td><strong>Ventajas</strong></td>
-                        <td>Más ligero, más rápido para carga inicial</td>
-                        <td>Más flexible, archivos más pequeños</td>
+                        <td><strong>Performance</strong></td>
+                        <td>Good for medium datasets</td>
+                        <td>Excellent for large datasets</td>
                     </tr>
                     <tr>
-                        <td><strong>Mejor Para</strong></td>
-                        <td>Uso general, móviles</td>
-                        <td>Visualizaciones avanzadas</td>
+                        <td><strong>Best For</strong></td>
+                        <td>General use, simplicity</td>
+                        <td>Modern apps, performance</td>
                     </tr>
                 </tbody>
             </table>
 
             <p style="margin-top: 1rem;">
-                <strong>Dato Técnico:</strong> El TopoJSON reduce el tamaño del archivo en un 58% eliminando redundancia en
-                fronteras compartidas y usando topología de arcos. Ambas implementaciones incluyen los mismos 19 regiones con
-                geometrías detalladas.
+                <strong>Technical Note:</strong> MapLibre GL JS uses WebGL for hardware-accelerated rendering, making it
+                ideal for large datasets and smooth animations. Leaflet uses traditional Canvas/SVG rendering which is lighter
+                and more widely compatible.
             </p>
         </div>
 
         <div class="footer">
             <p>
-                Proyecto POC - Visualización de Resultados Electorales<br>
-                <a href="https://github.com/flenzi/election-visualization-poc" target="_blank">Ver en GitHub</a>
+                POC Project - Election Results Visualization<br>
+                <a href="https://github.com/flenzi/election-visualization-poc" target="_blank">View on GitHub</a>
             </p>
         </div>
     </div>

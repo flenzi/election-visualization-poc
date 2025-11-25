@@ -1,9 +1,9 @@
 /**
- * D3.js Application
- * Main application logic for D3 visualization
+ * MapLibre GL JS Application
+ * Main application logic for MapLibre visualization
  */
 
-const D3App = {
+const MapLibreApp = {
     /**
      * Initialize the application
      */
@@ -12,8 +12,8 @@ const D3App = {
             // Show loading overlay
             this.showLoading();
 
-            // Initialize D3 map
-            D3Map.init('map');
+            // Initialize MapLibre map
+            MapLibreMap.init('map');
 
             // Load data
             await this.loadAllData();
@@ -32,10 +32,21 @@ const D3App = {
      */
     async loadAllData() {
         try {
-            await D3Map.loadData(
-                'data/geo/spain-comunidades.topojson',
-                'data/elections/2023-generales.json'
-            );
+            // Load geographic boundaries and election data
+            const [geoJSON, electionData] = await Promise.all([
+                DataLoader.loadGeoJSON('data/geo/spain-comunidades.json'),
+                DataLoader.loadElectionData('data/elections/2023-generales.json')
+            ]);
+
+            // Merge data
+            const mergedData = DataLoader.mergeData(geoJSON, electionData);
+
+            // Display on map
+            await MapLibreMap.loadData(mergedData, electionData);
+
+            // Create legend
+            MapLibreMap.createLegend(electionData);
+
         } catch (error) {
             console.error('Error loading data:', error);
             throw new Error('Could not load data. Please verify that the files exist.');
@@ -79,7 +90,7 @@ const D3App = {
                                    background: #667eea; color: white;
                                    border: none; border-radius: 4px;
                                    cursor: pointer;">
-                        Reintentar
+                        Retry
                     </button>
                 </div>
             `;
@@ -89,7 +100,7 @@ const D3App = {
 
 // Initialize app when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => D3App.init());
+    document.addEventListener('DOMContentLoaded', () => MapLibreApp.init());
 } else {
-    D3App.init();
+    MapLibreApp.init();
 }
