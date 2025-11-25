@@ -31,12 +31,32 @@ const D3Map = {
             .style('height', 'auto')
             .style('display', 'block');
 
-        // Add background
+        // Add background with subtle gradient
+        const defs = this.svg.append('defs');
+        const gradient = defs.append('linearGradient')
+            .attr('id', 'bgGradient')
+            .attr('x1', '0%')
+            .attr('y1', '0%')
+            .attr('x2', '0%')
+            .attr('y2', '100%');
+
+        gradient.append('stop')
+            .attr('offset', '0%')
+            .attr('stop-color', '#e3f2fd');
+
+        gradient.append('stop')
+            .attr('offset', '50%')
+            .attr('stop-color', '#bbdefb');
+
+        gradient.append('stop')
+            .attr('offset', '100%')
+            .attr('stop-color', '#90caf9');
+
         this.svg.append('rect')
             .attr('class', 'background')
             .attr('width', width)
             .attr('height', height)
-            .attr('fill', '#aad3df');
+            .attr('fill', 'url(#bgGradient)');
 
         // Create group for map features
         this.g = this.svg.append('g');
@@ -125,11 +145,20 @@ const D3Map = {
      * Render the map
      */
     renderMap(geojson) {
-        // Fit projection to bounds
-        this.projection.fitSize(
-            [this.svg.node().clientWidth, this.svg.node().clientHeight],
+        const width = this.svg.node().clientWidth;
+        const height = this.svg.node().clientHeight;
+
+        // Fit projection to bounds with padding (10% margin on each side)
+        const padding = 50;
+        this.projection.fitExtent(
+            [[padding, padding], [width - padding, height - padding]],
             geojson
         );
+
+        // Update path generator
+        this.path = d3.geoPath().projection(this.projection);
+
+        console.log(`Rendering ${geojson.features.length} regions`);
 
         // Draw regions
         const regions = this.g.selectAll('path')
@@ -139,7 +168,7 @@ const D3Map = {
             .attr('d', this.path)
             .attr('fill', d => this.getFillColor(d))
             .attr('stroke', '#ffffff')
-            .attr('stroke-width', 1.5)
+            .attr('stroke-width', 0.75)
             .attr('stroke-linejoin', 'round')
             .style('cursor', 'pointer')
             .on('mouseover', (event, d) => this.handleMouseOver(event, d))
@@ -152,6 +181,14 @@ const D3Map = {
                 const name = d.properties.electionData?.name || d.properties.name || 'Region';
                 return name;
             });
+
+        // Log region codes for debugging
+        geojson.features.forEach(f => {
+            const code = f.properties.iso_3166_2;
+            const name = f.properties.name;
+            const hasData = !!f.properties.electionData;
+            console.log(`${code}: ${name} - Data: ${hasData}`);
+        });
     },
 
     /**
@@ -170,7 +207,7 @@ const D3Map = {
      */
     handleMouseOver(event, d) {
         const path = d3.select(event.currentTarget);
-        path.attr('stroke-width', 3)
+        path.attr('stroke-width', 2)
             .attr('stroke', '#333')
             .style('filter', 'brightness(1.1)');
     },
@@ -181,7 +218,7 @@ const D3Map = {
     handleMouseOut(event, d) {
         const path = d3.select(event.currentTarget);
         if (this.selectedFeature !== d) {
-            path.attr('stroke-width', 1.5)
+            path.attr('stroke-width', 0.75)
                 .attr('stroke', '#ffffff')
                 .style('filter', 'none');
         }
@@ -195,7 +232,7 @@ const D3Map = {
         if (this.selectedFeature) {
             this.g.selectAll('path')
                 .filter(feature => feature === this.selectedFeature)
-                .attr('stroke-width', 1.5)
+                .attr('stroke-width', 0.75)
                 .attr('stroke', '#ffffff')
                 .style('filter', 'none');
         }
@@ -203,7 +240,7 @@ const D3Map = {
         // Highlight new selection
         this.selectedFeature = d;
         const path = d3.select(event.currentTarget);
-        path.attr('stroke-width', 3)
+        path.attr('stroke-width', 2.5)
             .attr('stroke', '#333')
             .style('filter', 'brightness(1.1)');
 
