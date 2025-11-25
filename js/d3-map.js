@@ -113,10 +113,20 @@ const D3Map = {
             this.currentTopoJSON = topoJSON;
             this.currentElectionData = electionData;
 
+            console.log('TopoJSON loaded:', topoJSON);
+            console.log('Objects:', Object.keys(topoJSON.objects));
+
             // Convert TopoJSON to GeoJSON features
-            // The topojson.feature expects (topology, object) where object is one of the named objects
             const objectKey = Object.keys(topoJSON.objects)[0];
+            console.log('Using object key:', objectKey);
+
             const geojson = topojson.feature(topoJSON, topoJSON.objects[objectKey]);
+            console.log('Converted GeoJSON:', geojson);
+            console.log('Feature count:', geojson.features.length);
+
+            // Check bounding box
+            const bounds = d3.geoBounds(geojson);
+            console.log('GeoJSON bounds:', bounds);
 
             // Merge election data
             geojson.features.forEach(feature => {
@@ -126,6 +136,8 @@ const D3Map = {
 
                 if (electionData.results[regionCode]) {
                     feature.properties.electionData = electionData.results[regionCode];
+                } else {
+                    console.warn(`No election data for ${regionCode}: ${feature.properties.name}`);
                 }
             });
 
@@ -148,24 +160,44 @@ const D3Map = {
         const width = this.svg.node().clientWidth;
         const height = this.svg.node().clientHeight;
 
-        // Fit projection to bounds with padding (10% margin on each side)
+        console.log(`SVG dimensions: ${width}x${height}`);
+        console.log(`Rendering ${geojson.features.length} regions`);
+
+        // Calculate bounds
+        const bounds = d3.geoBounds(geojson);
+        console.log('GeoJSON bounds:', bounds);
+
+        // Fit projection to bounds with padding
         const padding = 50;
         this.projection.fitExtent(
             [[padding, padding], [width - padding, height - padding]],
             geojson
         );
 
+        console.log('Projection center:', this.projection.center());
+        console.log('Projection scale:', this.projection.scale());
+
         // Update path generator
         this.path = d3.geoPath().projection(this.projection);
 
-        console.log(`Rendering ${geojson.features.length} regions`);
+        // Test path generation for first feature
+        if (geojson.features.length > 0) {
+            const testPath = this.path(geojson.features[0]);
+            console.log('Test path for first feature:', testPath ? testPath.substring(0, 100) : 'NULL');
+        }
 
         // Draw regions
         const regions = this.g.selectAll('path')
             .data(geojson.features)
             .join('path')
             .attr('class', 'region')
-            .attr('d', this.path)
+            .attr('d', d => {
+                const path = this.path(d);
+                if (!path) {
+                    console.error('NULL path for region:', d.properties.iso_3166_2, d.properties.name);
+                }
+                return path;
+            })
             .attr('fill', d => this.getFillColor(d))
             .attr('stroke', '#ffffff')
             .attr('stroke-width', 0.75)
@@ -182,13 +214,17 @@ const D3Map = {
                 return name;
             });
 
-        // Log region codes for debugging
+        // Log all regions
         geojson.features.forEach(f => {
             const code = f.properties.iso_3166_2;
             const name = f.properties.name;
             const hasData = !!f.properties.electionData;
-            console.log(`${code}: ${name} - Data: ${hasData}`);
+            const pathGen = this.path(f);
+            const hasPath = !!pathGen;
+            console.log(`${code}: ${name} - Data: ${hasData}, Path: ${hasPath}`);
         });
+
+        console.log('Rendering complete');
     },
 
     /**
