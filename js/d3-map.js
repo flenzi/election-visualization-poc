@@ -163,15 +163,29 @@ const D3Map = {
         console.log(`SVG dimensions: ${width}x${height}`);
         console.log(`Rendering ${geojson.features.length} regions`);
 
-        // Calculate bounds
-        const bounds = d3.geoBounds(geojson);
-        console.log('GeoJSON bounds:', bounds);
+        // Separate mainland Spain from Canary Islands and Balearic Islands
+        // Canary Islands are 1,300km away and make mainland Spain tiny
+        const mainlandFeatures = geojson.features.filter(f =>
+            f.properties.iso_3166_2 !== 'ES-CN' && // Canary Islands
+            f.properties.iso_3166_2 !== 'ES-IB'    // Balearic Islands
+        );
 
-        // Fit projection to bounds with padding
+        const canaryIslands = geojson.features.filter(f => f.properties.iso_3166_2 === 'ES-CN');
+        const balearicIslands = geojson.features.filter(f => f.properties.iso_3166_2 === 'ES-IB');
+
+        console.log(`Mainland: ${mainlandFeatures.length}, Canary: ${canaryIslands.length}, Balearic: ${balearicIslands.length}`);
+
+        // Create feature collection for mainland
+        const mainlandGeoJSON = {
+            type: 'FeatureCollection',
+            features: mainlandFeatures
+        };
+
+        // Fit projection to mainland Spain only
         const padding = 50;
         this.projection.fitExtent(
             [[padding, padding], [width - padding, height - padding]],
-            geojson
+            mainlandGeoJSON
         );
 
         console.log('Projection center:', this.projection.center());
@@ -180,13 +194,7 @@ const D3Map = {
         // Update path generator
         this.path = d3.geoPath().projection(this.projection);
 
-        // Test path generation for first feature
-        if (geojson.features.length > 0) {
-            const testPath = this.path(geojson.features[0]);
-            console.log('Test path for first feature:', testPath ? testPath.substring(0, 100) : 'NULL');
-        }
-
-        // Draw regions
+        // Draw ALL regions (mainland + islands)
         const regions = this.g.selectAll('path')
             .data(geojson.features)
             .join('path')
@@ -214,17 +222,72 @@ const D3Map = {
                 return name;
             });
 
-        // Log all regions
-        geojson.features.forEach(f => {
-            const code = f.properties.iso_3166_2;
-            const name = f.properties.name;
-            const hasData = !!f.properties.electionData;
-            const pathGen = this.path(f);
-            const hasPath = !!pathGen;
-            console.log(`${code}: ${name} - Data: ${hasData}, Path: ${hasPath}`);
-        });
+        // Add inset for Canary Islands if they exist
+        if (canaryIslands.length > 0) {
+            this.createInset(canaryIslands[0], width - 200, height - 180, 150, 150);
+        }
+
+        // Add inset for Balearic Islands if they exist
+        if (balearicIslands.length > 0) {
+            this.createInset(balearicIslands[0], width - 200, height - 350, 150, 150);
+        }
 
         console.log('Rendering complete');
+    },
+
+    /**
+     * Create an inset for islands that are far from mainland
+     */
+    createInset(feature, x, y, w, h) {
+        const insetGroup = this.svg.append('g')
+            .attr('class', 'inset')
+            .attr('transform', `translate(${x}, ${y})`);
+
+        // Add background
+        insetGroup.append('rect')
+            .attr('width', w)
+            .attr('height', h)
+            .attr('fill', 'rgba(255, 255, 255, 0.9)')
+            .attr('stroke', '#333')
+            .attr('stroke-width', 1)
+            .attr('rx', 4);
+
+        // Create projection for this inset
+        const insetProjection = d3.geoMercator();
+        const insetFeatureCollection = {
+            type: 'FeatureCollection',
+            features: [feature]
+        };
+
+        insetProjection.fitExtent(
+            [[10, 10], [w - 10, h - 10]],
+            insetFeatureCollection
+        );
+
+        const insetPath = d3.geoPath().projection(insetProjection);
+
+        // Draw the feature
+        insetGroup.append('path')
+            .datum(feature)
+            .attr('class', 'region-inset')
+            .attr('d', insetPath)
+            .attr('fill', this.getFillColor(feature))
+            .attr('stroke', '#ffffff')
+            .attr('stroke-width', 0.75)
+            .style('cursor', 'pointer')
+            .on('click', (event, d) => {
+                this.displayResults(d);
+            });
+
+        // Add label
+        insetGroup.append('text')
+            .attr('x', w / 2)
+            .attr('y', h - 5)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '11px')
+            .attr('font-weight', 'bold')
+            .attr('fill', '#333')
+            .text(feature.properties.name);
     },
 
     /**
