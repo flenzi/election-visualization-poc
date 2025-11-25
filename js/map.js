@@ -167,9 +167,12 @@ const ElectionMap = {
 
         // Fly to the selected region with smooth animation
         const bounds = layer.getBounds();
+
+        // Account for the 350px results panel on the right
+        // Use asymmetric padding: less on left, more on right
         this.map.flyToBounds(bounds, {
-            paddingTopLeft: [50, 50],
-            paddingBottomRight: [400, 50],
+            paddingTopLeft: [20, 50],     // Small padding on left
+            paddingBottomRight: [400, 50], // Large padding on right for panel
             maxZoom: 8,
             duration: 1.5
         });
