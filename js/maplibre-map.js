@@ -201,12 +201,25 @@ const MapLibreMap = {
         // Fly to the region
         const bounds = this.getFeatureBounds(feature);
         if (bounds) {
-            // Results panel is on the RIGHT, so more padding on right
-            this.map.fitBounds(bounds, {
-                padding: {top: 100, bottom: 100, left: 50, right: 450},
-                duration: 1500,
-                maxZoom: 8
-            });
+            // Check if mobile
+            const isMobile = window.innerWidth <= 768;
+
+            // Different settings for mobile vs desktop
+            if (isMobile) {
+                // Mobile: results panel is below (40vh), use vertical padding
+                this.map.fitBounds(bounds, {
+                    padding: {top: 50, bottom: 300, left: 50, right: 50},
+                    duration: 1500,
+                    maxZoom: 7
+                });
+            } else {
+                // Desktop: results panel on right (350px), use horizontal padding
+                this.map.fitBounds(bounds, {
+                    padding: {top: 100, bottom: 100, left: 50, right: 450},
+                    duration: 1500,
+                    maxZoom: 8
+                });
+            }
         }
     },
 

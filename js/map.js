@@ -168,14 +168,27 @@ const ElectionMap = {
         // Fly to the selected region with smooth animation
         const bounds = layer.getBounds();
 
-        // Account for the 350px results panel on the right
-        // Use asymmetric padding: minimal on left, large on right
-        this.map.flyToBounds(bounds, {
-            paddingTopLeft: [50, 50],     // Minimal padding on left
-            paddingBottomRight: [450, 50], // Large padding on right (350px panel + margin)
-            maxZoom: 8,
-            duration: 1.5
-        });
+        // Check if mobile
+        const isMobile = window.innerWidth <= 768;
+
+        // Different settings for mobile vs desktop
+        if (isMobile) {
+            // Mobile: results panel is below (40vh), so use vertical padding
+            this.map.flyToBounds(bounds, {
+                paddingTopLeft: [20, 20],
+                paddingBottomRight: [20, 250], // Extra bottom padding for results panel
+                maxZoom: 7,
+                duration: 1.5
+            });
+        } else {
+            // Desktop: results panel on right (350px), use horizontal padding
+            this.map.flyToBounds(bounds, {
+                paddingTopLeft: [50, 50],
+                paddingBottomRight: [450, 50], // Large right padding for panel
+                maxZoom: 8,
+                duration: 1.5
+            });
+        }
     },
 
     /**

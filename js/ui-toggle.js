@@ -21,21 +21,13 @@ const UIToggle = {
 
         // Initialize visibility based on screen size
         const initializeVisibility = () => {
-            if (isMobile()) {
-                // Mobile: hide both by default
-                legend.classList.add('hidden');
-                legend.classList.remove('visible');
-                regionsList.classList.add('hidden');
-                regionsList.classList.remove('visible');
-                toggleLegend.classList.remove('active');
-                toggleRegions.classList.remove('active');
-            } else {
-                // Desktop: show both by default
-                legend.classList.remove('hidden', 'visible');
-                regionsList.classList.remove('hidden', 'visible');
-                toggleLegend.classList.add('active');
-                toggleRegions.classList.add('active');
-            }
+            // Hide both panels by default on all devices
+            legend.classList.add('hidden');
+            legend.classList.remove('visible');
+            regionsList.classList.add('hidden');
+            regionsList.classList.remove('visible');
+            toggleLegend.classList.remove('active');
+            toggleRegions.classList.remove('active');
         };
 
         // Toggle legend
