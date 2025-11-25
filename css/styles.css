@@ -271,6 +271,82 @@ header h1 {
     border: 1px solid rgba(0,0,0,0.1);
 }
 
+/* Regions List */
+.regions-list {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: var(--bg-primary);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    min-width: 200px;
+    max-width: 250px;
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+}
+
+.regions-list h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    position: sticky;
+    top: 0;
+    background: var(--bg-primary);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.regions-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.region-list-item {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    border-left: 3px solid transparent;
+}
+
+.region-list-item:hover {
+    background-color: var(--bg-secondary);
+    border-left-color: #667eea;
+}
+
+.region-list-item.selected {
+    background-color: #e8eaf6;
+    border-left-color: #667eea;
+    font-weight: 500;
+}
+
+/* Custom scrollbar for regions list */
+.regions-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.regions-list::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 3px;
+}
+
+.regions-list::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 3px;
+}
+
+.regions-list::-webkit-scrollbar-thumb:hover {
+    background: #5568d3;
+}
+
 /* Loading Overlay */
 .loading-overlay {
     position: fixed;
@@ -329,6 +405,14 @@ header h1 {
         left: 1rem;
         padding: 0.75rem 1rem;
         min-width: 150px;
+    }
+
+    .regions-list {
+        top: 1rem;
+        right: 1rem;
+        max-height: calc(100vh - 450px);
+        min-width: 180px;
+        max-width: 200px;
     }
 
     .legend h3 {

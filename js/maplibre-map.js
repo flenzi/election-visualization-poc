@@ -115,18 +115,12 @@ const MapLibreMap = {
      */
     updateColors() {
         this.currentGeoJSON.features.forEach(feature => {
-            // Get region code
-            const regionCode = feature.properties.iso_3166_2 ||
-                              feature.properties.ISO_3166_2 ||
-                              feature.properties.code;
-
             // Get election data for this region
             const electionData = feature.properties.electionData;
 
             if (electionData && electionData.winner) {
                 feature.properties.fillColor = DataLoader.getPartyColor(electionData.winner);
             } else {
-                console.warn(`No election data or winner for region: ${regionCode}`);
                 feature.properties.fillColor = '#cccccc';
             }
         });
@@ -198,6 +192,12 @@ const MapLibreMap = {
         // Display results in panel
         this.displayResults(regionCode, electionData, properties);
 
+        // Update regions list selection
+        document.querySelectorAll('.region-list-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        document.querySelector(`[data-region-code="${regionCode}"]`)?.classList.add('selected');
+
         // Fly to the region
         const bounds = this.getFeatureBounds(feature);
         if (bounds) {
@@ -240,12 +240,9 @@ const MapLibreMap = {
      * Display results in panel
      */
     displayResults(regionCode, electionData, properties) {
-        console.log('displayResults called - regionCode:', regionCode, 'electionData:', electionData);
-
         const name = electionData?.name || properties?.name || 'Region';
 
         if (!electionData) {
-            console.warn(`Displaying "no data" message for region: ${regionCode}`);
             document.getElementById('panelContent').innerHTML = `
                 <div class="region-detail">
                     <h2 class="region-name">${name}</h2>
@@ -254,8 +251,6 @@ const MapLibreMap = {
             `;
             return;
         }
-
-        console.log('Displaying results for:', name);
 
         // Sort parties by votes
         const parties = Object.entries(electionData.parties || {})
@@ -327,5 +322,66 @@ const MapLibreMap = {
             `;
             legendItems.appendChild(item);
         });
+    },
+
+    /**
+     * Create regions list
+     */
+    createRegionsList(geoJSON, electionData) {
+        const regionsListItems = document.getElementById('regionsListItems');
+        regionsListItems.innerHTML = '';
+
+        // Get all regions with their names
+        const regions = geoJSON.features.map(feature => {
+            const regionCode = feature.properties.iso_3166_2 ||
+                              feature.properties.ISO_3166_2 ||
+                              feature.properties.code;
+            const regionData = electionData?.results?.[regionCode];
+            const name = regionData?.name || feature.properties.name || 'Unknown';
+
+            return {
+                code: regionCode,
+                name: name,
+                feature: feature
+            };
+        }).sort((a, b) => a.name.localeCompare(b.name));
+
+        // Create list items
+        regions.forEach(region => {
+            const item = document.createElement('div');
+            item.className = 'region-list-item';
+            item.textContent = region.name;
+            item.dataset.regionCode = region.code;
+
+            item.addEventListener('click', () => {
+                this.selectRegionByCode(region.code);
+            });
+
+            regionsListItems.appendChild(item);
+        });
+    },
+
+    /**
+     * Select region by code
+     */
+    selectRegionByCode(regionCode) {
+        // Find the feature by region code
+        const feature = this.currentGeoJSON.features.find(f => {
+            const code = f.properties.iso_3166_2 ||
+                        f.properties.ISO_3166_2 ||
+                        f.properties.code;
+            return code === regionCode;
+        });
+
+        if (feature) {
+            // Trigger the selection
+            this.selectRegion(feature);
+
+            // Update selected state in list
+            document.querySelectorAll('.region-list-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector(`[data-region-code="${regionCode}"]`)?.classList.add('selected');
+        }
     }
 };

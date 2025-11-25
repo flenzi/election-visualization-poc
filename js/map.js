@@ -153,6 +153,17 @@ const ElectionMap = {
 
         // Display results in panel
         this.displayResults(feature);
+
+        // Update regions list selection
+        const regionCode = feature.properties.iso_3166_2 ||
+                          feature.properties.ISO_3166_2 ||
+                          feature.properties.code;
+        if (regionCode) {
+            document.querySelectorAll('.region-list-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector(`[data-region-code="${regionCode}"]`)?.classList.add('selected');
+        }
     },
 
     /**
@@ -245,5 +256,71 @@ const ElectionMap = {
             `;
             legendItems.appendChild(item);
         });
+    },
+
+    /**
+     * Create regions list
+     */
+    createRegionsList(geoJSON, electionData) {
+        const regionsListItems = document.getElementById('regionsListItems');
+        regionsListItems.innerHTML = '';
+
+        // Get all regions with their names
+        const regions = geoJSON.features.map(feature => {
+            const regionCode = feature.properties.iso_3166_2 ||
+                              feature.properties.ISO_3166_2 ||
+                              feature.properties.code;
+            const regionData = electionData?.results?.[regionCode];
+            const name = regionData?.name || feature.properties.name || 'Unknown';
+
+            return {
+                code: regionCode,
+                name: name,
+                feature: feature
+            };
+        }).sort((a, b) => a.name.localeCompare(b.name));
+
+        // Create list items
+        regions.forEach(region => {
+            const item = document.createElement('div');
+            item.className = 'region-list-item';
+            item.textContent = region.name;
+            item.dataset.regionCode = region.code;
+
+            item.addEventListener('click', () => {
+                this.selectRegionByCode(region.code);
+            });
+
+            regionsListItems.appendChild(item);
+        });
+    },
+
+    /**
+     * Select region by code
+     */
+    selectRegionByCode(regionCode) {
+        // Find the feature by region code
+        const feature = this.currentGeoJSON.features.find(f => {
+            const code = f.properties.iso_3166_2 ||
+                        f.properties.ISO_3166_2 ||
+                        f.properties.code;
+            return code === regionCode;
+        });
+
+        if (feature) {
+            // Find the corresponding layer
+            this.geoJSONLayer.eachLayer(layer => {
+                if (layer.feature === feature) {
+                    // Trigger the selection
+                    this.selectFeature({ target: layer });
+
+                    // Update selected state in list
+                    document.querySelectorAll('.region-list-item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    document.querySelector(`[data-region-code="${regionCode}"]`)?.classList.add('selected');
+                }
+            });
+        }
     }
 };

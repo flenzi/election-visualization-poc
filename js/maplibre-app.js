@@ -47,6 +47,9 @@ const MapLibreApp = {
             // Create legend
             MapLibreMap.createLegend(electionData);
 
+            // Create regions list
+            MapLibreMap.createRegionsList(mergedData, electionData);
+
         } catch (error) {
             console.error('Error loading data:', error);
             throw new Error('Could not load data. Please verify that the files exist.');
