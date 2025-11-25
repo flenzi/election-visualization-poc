@@ -46,15 +46,31 @@
             </aside>
         </div>
 
+        <!-- Toggle Buttons -->
+        <button class="toggle-btn toggle-btn-legend" id="toggleLegend">
+            <span>📊</span>
+            <span>Parties</span>
+        </button>
+        <button class="toggle-btn toggle-btn-regions" id="toggleRegions">
+            <span>🗺️</span>
+            <span>Regions</span>
+        </button>
+
         <!-- Legend -->
         <div class="legend" id="legend">
-            <h3>Parties</h3>
+            <h3>
+                <span>Parties</span>
+                <button class="close-btn" id="closeLegend">&times;</button>
+            </h3>
             <div class="legend-items" id="legendItems"></div>
         </div>
 
         <!-- Regions List -->
         <div class="regions-list" id="regionsList">
-            <h3>Regions</h3>
+            <h3>
+                <span>Regions</span>
+                <button class="close-btn" id="closeRegions">&times;</button>
+            </h3>
             <div class="regions-list-items" id="regionsListItems"></div>
         </div>
 
@@ -74,5 +90,6 @@
     <script src="js/data-loader.js"></script>
     <script src="js/map.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/ui-toggle.js"></script>
 </body>
 </html>
