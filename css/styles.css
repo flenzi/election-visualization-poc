@@ -267,8 +267,8 @@ header h1 {
 }
 
 .toggle-btn-regions {
-    top: 120px;
-    right: 2rem;
+    bottom: 5rem;
+    left: 2rem;
 }
 
 .toggle-btn.active {
@@ -280,15 +280,16 @@ header h1 {
 /* Legend */
 .legend {
     position: fixed;
-    bottom: 2rem;
+    bottom: 8rem;
     left: 2rem;
     background: var(--bg-primary);
     padding: 1rem 1.25rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1001;
+    z-index: 999;
     min-width: 200px;
-    max-height: calc(100vh - 200px);
+    max-width: 250px;
+    max-height: calc(100vh - 360px);
     overflow-y: auto;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -323,7 +324,7 @@ header h1 {
     padding: 0;
     width: 24px;
     height: 24px;
-    display: flex;
+    display: none; /* Hidden on desktop by default */
     align-items: center;
     justify-content: center;
     border-radius: 4px;
@@ -360,15 +361,15 @@ header h1 {
 .regions-list {
     position: fixed;
     top: 120px;
-    right: 2rem;
+    left: 2rem;
     background: var(--bg-primary);
     padding: 1rem 1.25rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1001;
+    z-index: 999;
     min-width: 220px;
     max-width: 250px;
-    max-height: calc(100vh - 250px);
+    max-height: calc(100vh - 280px);
     overflow-y: auto;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -376,7 +377,7 @@ header h1 {
 .regions-list.hidden {
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-20px) scale(0.95);
+    transform: translateX(-20px) scale(0.95);
 }
 
 .regions-list h3 {
@@ -507,17 +508,47 @@ header h1 {
         display: block;
     }
 
-    /* Mobile: Show legend and regions as overlay modals */
+    /* Show close buttons on mobile */
+    .close-btn {
+        display: flex !important;
+    }
+
+    /* Mobile: Show legend as horizontal chips overlay */
     .legend.visible {
         bottom: 0;
         left: 0;
         right: 0;
         top: auto;
         border-radius: 16px 16px 0 0;
-        max-height: 60vh;
+        max-height: 40vh;
         min-width: unset;
         padding: 1rem 1.25rem 1.5rem;
         box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        z-index: 1002;
+    }
+
+    .legend.visible .legend-items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        max-height: 25vh;
+        overflow-y: auto;
+    }
+
+    .legend.visible .legend-item {
+        background: var(--bg-secondary);
+        padding: 0.4rem 0.75rem;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+    .legend.visible .legend-color {
+        width: 14px;
+        height: 14px;
+        margin-right: 0.4rem;
     }
 
     .regions-list.visible {
@@ -531,29 +562,29 @@ header h1 {
         min-width: 260px;
         padding: 1rem 1.25rem;
         box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+        z-index: 1002;
     }
 
-    /* Toggle buttons on mobile */
+    /* Toggle buttons on mobile - restore original positions */
     .toggle-btn-legend {
-        bottom: 1rem;
-        left: 1rem;
+        bottom: 1rem !important;
+        left: 1rem !important;
         padding: 0.6rem 0.9rem;
         font-size: 0.8rem;
     }
 
     .toggle-btn-regions {
-        top: 100px;
-        right: 1rem;
+        top: 100px !important;
+        right: 1rem !important;
+        left: auto !important;
+        bottom: auto !important;
         padding: 0.6rem 0.9rem;
         font-size: 0.8rem;
     }
 
     .legend h3 {
-        font-size: 0.8rem;
-    }
-
-    .legend-item {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
     }
 
     header h1 {
