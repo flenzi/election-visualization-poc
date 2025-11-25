@@ -115,10 +115,18 @@ const MapLibreMap = {
      */
     updateColors() {
         this.currentGeoJSON.features.forEach(feature => {
+            // Get region code
+            const regionCode = feature.properties.iso_3166_2 ||
+                              feature.properties.ISO_3166_2 ||
+                              feature.properties.code;
+
+            // Get election data for this region
             const electionData = feature.properties.electionData;
+
             if (electionData && electionData.winner) {
                 feature.properties.fillColor = DataLoader.getPartyColor(electionData.winner);
             } else {
+                console.warn(`No election data or winner for region: ${regionCode}`);
                 feature.properties.fillColor = '#cccccc';
             }
         });
@@ -166,13 +174,26 @@ const MapLibreMap = {
      */
     selectRegion(feature) {
         const properties = feature.properties;
-        const regionCode = properties.iso_3166_2;
+
+        // Try multiple property names for region code (same as data loader)
+        const regionCode = properties.iso_3166_2 ||
+                          properties.ISO_3166_2 ||
+                          properties.code;
+
+        if (!regionCode) {
+            console.error('No region code found in properties:', properties);
+            return;
+        }
 
         // Store selected feature
         this.selectedFeatureId = regionCode;
 
         // Get election data for this region
         const electionData = this.currentElectionData?.results?.[regionCode];
+
+        if (!electionData) {
+            console.warn(`No election data found for region code: ${regionCode}`);
+        }
 
         // Display results in panel
         this.displayResults(regionCode, electionData, properties);
@@ -219,9 +240,12 @@ const MapLibreMap = {
      * Display results in panel
      */
     displayResults(regionCode, electionData, properties) {
+        console.log('displayResults called - regionCode:', regionCode, 'electionData:', electionData);
+
         const name = electionData?.name || properties?.name || 'Region';
 
         if (!electionData) {
+            console.warn(`Displaying "no data" message for region: ${regionCode}`);
             document.getElementById('panelContent').innerHTML = `
                 <div class="region-detail">
                     <h2 class="region-name">${name}</h2>
@@ -230,6 +254,8 @@ const MapLibreMap = {
             `;
             return;
         }
+
+        console.log('Displaying results for:', name);
 
         // Sort parties by votes
         const parties = Object.entries(electionData.parties || {})
