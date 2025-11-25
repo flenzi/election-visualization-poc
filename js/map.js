@@ -170,8 +170,8 @@ const ElectionMap = {
         this.map.flyToBounds(bounds, {
             paddingTopLeft: [50, 50],
             paddingBottomRight: [400, 50],
-            duration: 1.0,
-            easeLinearity: 0.25
+            maxZoom: 8,
+            duration: 1.5
         });
     },
 
