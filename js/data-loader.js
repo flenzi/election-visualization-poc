@@ -41,18 +41,24 @@ const DataLoader = {
     /**
      * Merge election data with geographic features
      */
-    mergeData(geoJSON, electionData) {
+    mergeData(geoJSON, electionData, idProperty = null) {
         const results = electionData.results;
 
         geoJSON.features.forEach(feature => {
-            const regionCode = feature.properties.iso_3166_2 ||
-                              feature.properties.ISO_3166_2 ||
-                              feature.properties.code;
+            // Use custom ID property if provided, otherwise use defaults
+            const regionCode = idProperty
+                ? feature.properties[idProperty]
+                : (feature.properties.iso_3166_2 ||
+                   feature.properties.ISO_3166_2 ||
+                   feature.properties.code);
 
             if (results[regionCode]) {
                 feature.properties.electionData = results[regionCode];
             } else {
-                console.warn(`No election data found for region: ${regionCode} (${feature.properties.name})`);
+                const displayName = feature.properties.name ||
+                                   feature.properties.NAME_4 ||
+                                   feature.properties.NAME_3;
+                console.warn(`No election data found for region: ${regionCode} (${displayName})`);
             }
         });
 
@@ -66,6 +72,9 @@ const DataLoader = {
         const colors = {
             'PP': '#1E88E5',
             'PSOE': '#E53935',
+            'PSC': '#E53935',
+            'PSE': '#E53935',
+            'PSN': '#E53935',
             'VOX': '#76B900',
             'SUMAR': '#E91E63',
             'ERC': '#FFB300',
@@ -74,6 +83,9 @@ const DataLoader = {
             'BILDU': '#8BC34A',
             'BNG': '#03A9F4',
             'CC': '#FFEB3B',
+            'CON MÁLAGA': '#9C27B0',
+            'OSP': '#FF5722',
+            'CLARO QUE PODEMOS': '#9C27B0',
             'OTHER': '#9E9E9E'
         };
         return colors[party] || colors['OTHER'];

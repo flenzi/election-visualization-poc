@@ -1,0 +1,420 @@
+{
+  "election": {
+    "name": "Elecciones Municipales 2023 - Málaga",
+    "date": "2023-05-28",
+    "type": "municipal",
+    "description": "Ayuntamientos de la Provincia de Málaga"
+  },
+  "results": {
+    "ESP.4.29.1_1": {
+      "name": "Málaga",
+      "turnout": 65.8,
+      "parties": {
+        "PP": {
+          "votes": 125800,
+          "percentage": 35.2,
+          "seats": 14
+        },
+        "PSOE": {
+          "votes": 98500,
+          "percentage": 27.6,
+          "seats": 10
+        },
+        "VOX": {
+          "votes": 42300,
+          "percentage": 11.8,
+          "seats": 4
+        },
+        "SUMAR": {
+          "votes": 38700,
+          "percentage": 10.8,
+          "seats": 3
+        },
+        "CON MÁLAGA": {
+          "votes": 35200,
+          "percentage": 9.8,
+          "seats": 3
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.2_1": {
+      "name": "Marbella",
+      "turnout": 68.3,
+      "parties": {
+        "PP": {
+          "votes": 42500,
+          "percentage": 39.8,
+          "seats": 12
+        },
+        "PSOE": {
+          "votes": 28900,
+          "percentage": 27.1,
+          "seats": 8
+        },
+        "OSP": {
+          "votes": 18700,
+          "percentage": 17.5,
+          "seats": 5
+        },
+        "VOX": {
+          "votes": 12300,
+          "percentage": 11.5,
+          "seats": 3
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.3_1": {
+      "name": "Vélez-Málaga",
+      "turnout": 66.2,
+      "parties": {
+        "PP": {
+          "votes": 18900,
+          "percentage": 36.5,
+          "seats": 11
+        },
+        "PSOE": {
+          "votes": 16200,
+          "percentage": 31.3,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 6800,
+          "percentage": 13.1,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 5500,
+          "percentage": 10.6,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.4_1": {
+      "name": "Fuengirola",
+      "turnout": 67.5,
+      "parties": {
+        "PP": {
+          "votes": 18200,
+          "percentage": 38.2,
+          "seats": 11
+        },
+        "PSOE": {
+          "votes": 14500,
+          "percentage": 30.4,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 5800,
+          "percentage": 12.2,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 4900,
+          "percentage": 10.3,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.5_1": {
+      "name": "Mijas",
+      "turnout": 69.1,
+      "parties": {
+        "PP": {
+          "votes": 21300,
+          "percentage": 40.8,
+          "seats": 12
+        },
+        "PSOE": {
+          "votes": 15800,
+          "percentage": 30.3,
+          "seats": 9
+        },
+        "CLARO QUE PODEMOS": {
+          "votes": 6500,
+          "percentage": 12.5,
+          "seats": 3
+        },
+        "VOX": {
+          "votes": 5200,
+          "percentage": 10.0,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.6_1": {
+      "name": "Estepona",
+      "turnout": 70.2,
+      "parties": {
+        "PP": {
+          "votes": 19500,
+          "percentage": 42.5,
+          "seats": 13
+        },
+        "PSOE": {
+          "votes": 13200,
+          "percentage": 28.8,
+          "seats": 8
+        },
+        "VOX": {
+          "votes": 5800,
+          "percentage": 12.6,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 4200,
+          "percentage": 9.2,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.7_1": {
+      "name": "Torremolinos",
+      "turnout": 64.8,
+      "parties": {
+        "PSOE": {
+          "votes": 12800,
+          "percentage": 34.2,
+          "seats": 9
+        },
+        "PP": {
+          "votes": 11500,
+          "percentage": 30.7,
+          "seats": 8
+        },
+        "VOX": {
+          "votes": 5200,
+          "percentage": 13.9,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 4300,
+          "percentage": 11.5,
+          "seats": 2
+        }
+      },
+      "winner": "PSOE"
+    },
+    "ESP.4.29.8_1": {
+      "name": "Benalmádena",
+      "turnout": 65.9,
+      "parties": {
+        "PP": {
+          "votes": 14200,
+          "percentage": 37.8,
+          "seats": 10
+        },
+        "PSOE": {
+          "votes": 11800,
+          "percentage": 31.4,
+          "seats": 8
+        },
+        "VOX": {
+          "votes": 4800,
+          "percentage": 12.8,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 3900,
+          "percentage": 10.4,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.9_1": {
+      "name": "Rincón de la Victoria",
+      "turnout": 67.3,
+      "parties": {
+        "PP": {
+          "votes": 11200,
+          "percentage": 38.5,
+          "seats": 10
+        },
+        "PSOE": {
+          "votes": 9800,
+          "percentage": 33.7,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 3500,
+          "percentage": 12.0,
+          "seats": 2
+        },
+        "SUMAR": {
+          "votes": 2800,
+          "percentage": 9.6,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.10_1": {
+      "name": "Antequera",
+      "turnout": 68.5,
+      "parties": {
+        "PSOE": {
+          "votes": 12500,
+          "percentage": 36.8,
+          "seats": 10
+        },
+        "PP": {
+          "votes": 11200,
+          "percentage": 33.0,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 4200,
+          "percentage": 12.4,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 3800,
+          "percentage": 11.2,
+          "seats": 2
+        }
+      },
+      "winner": "PSOE"
+    },
+    "ESP.4.29.11_1": {
+      "name": "Ronda",
+      "turnout": 69.8,
+      "parties": {
+        "PP": {
+          "votes": 9800,
+          "percentage": 37.2,
+          "seats": 10
+        },
+        "PSOE": {
+          "votes": 8500,
+          "percentage": 32.3,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 3500,
+          "percentage": 13.3,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 2800,
+          "percentage": 10.6,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.12_1": {
+      "name": "Alhaurín de la Torre",
+      "turnout": 66.7,
+      "parties": {
+        "PP": {
+          "votes": 10500,
+          "percentage": 39.2,
+          "seats": 11
+        },
+        "PSOE": {
+          "votes": 8900,
+          "percentage": 33.2,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 3200,
+          "percentage": 11.9,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 2500,
+          "percentage": 9.3,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.13_1": {
+      "name": "Nerja",
+      "turnout": 68.9,
+      "parties": {
+        "PP": {
+          "votes": 5800,
+          "percentage": 41.2,
+          "seats": 9
+        },
+        "PSOE": {
+          "votes": 4500,
+          "percentage": 32.0,
+          "seats": 7
+        },
+        "VOX": {
+          "votes": 1800,
+          "percentage": 12.8,
+          "seats": 2
+        },
+        "SUMAR": {
+          "votes": 1200,
+          "percentage": 8.5,
+          "seats": 1
+        }
+      },
+      "winner": "PP"
+    },
+    "ESP.4.29.14_1": {
+      "name": "Coín",
+      "turnout": 67.2,
+      "parties": {
+        "PSOE": {
+          "votes": 6200,
+          "percentage": 35.8,
+          "seats": 9
+        },
+        "PP": {
+          "votes": 5800,
+          "percentage": 33.5,
+          "seats": 8
+        },
+        "VOX": {
+          "votes": 2300,
+          "percentage": 13.3,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 1800,
+          "percentage": 10.4,
+          "seats": 2
+        }
+      },
+      "winner": "PSOE"
+    },
+    "ESP.4.29.15_1": {
+      "name": "Alhaurín el Grande",
+      "turnout": 68.1,
+      "parties": {
+        "PP": {
+          "votes": 6500,
+          "percentage": 38.5,
+          "seats": 10
+        },
+        "PSOE": {
+          "votes": 5800,
+          "percentage": 34.3,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 2100,
+          "percentage": 12.4,
+          "seats": 2
+        },
+        "SUMAR": {
+          "votes": 1500,
+          "percentage": 8.9,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    }
+  }
+}

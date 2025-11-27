@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results Map - Málaga Municipalities (Leaflet)</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Election Results Map - Málaga 2023</h1>
+            <p class="subtitle">Municipal Elections - Ayuntamientos (Leaflet.js)</p>
+            <div style="margin-top: 0.5rem;">
+                <a href="index.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
+                    ← Back to home
+                </a>
+                <span style="color: rgba(255,255,255,0.5); margin: 0 0.5rem;">|</span>
+                <a href="malaga-maplibre.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
+                    View MapLibre version
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Map Container -->
+            <div id="map"></div>
+
+            <!-- Results Panel -->
+            <aside class="results-panel" id="resultsPanel">
+                <div class="panel-header">
+                    <h2>Results</h2>
+                </div>
+                <div class="panel-content" id="panelContent">
+                    <p class="info-text">Click on a municipality to see detailed results</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Toggle Buttons -->
+        <button class="toggle-btn toggle-btn-legend" id="toggleLegend">
+            <span>📊</span>
+            <span>Parties</span>
+        </button>
+        <button class="toggle-btn toggle-btn-regions" id="toggleRegions">
+            <span>🗺️</span>
+            <span>Municipalities</span>
+        </button>
+
+        <!-- Legend -->
+        <div class="legend" id="legend">
+            <h3>
+                <span>Parties</span>
+                <button class="close-btn" id="closeLegend">&times;</button>
+            </h3>
+            <div class="legend-items" id="legendItems"></div>
+        </div>
+
+        <!-- Regions List -->
+        <div class="regions-list" id="regionsList">
+            <h3>
+                <span>Municipalities</span>
+                <button class="close-btn" id="closeRegions">&times;</button>
+            </h3>
+            <div class="regions-list-items" id="regionsListItems"></div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Loading data...</p>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <!-- Application JS -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/map.js"></script>
+    <script>
+        // Override data paths for Málaga
+        window.ELECTION_CONFIG = {
+            geoDataPath: 'data/geo/malaga-municipios.json',
+            electionDataPath: 'data/elections/2023-malaga-municipales.json',
+            mapCenter: [36.72, -4.42],
+            mapZoom: 9,
+            geoIdProperty: 'GID_4',
+            geoNameProperty: 'NAME_4'
+        };
+    </script>
+    <script src="js/app.js"></script>
+    <script src="js/ui-toggle.js"></script>
+</body>
+</html>

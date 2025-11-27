@@ -32,17 +32,27 @@ const App = {
      */
     async loadAllData() {
         try {
+            // Get configuration (use custom config if available, otherwise use defaults)
+            const config = window.ELECTION_CONFIG || {
+                geoDataPath: 'data/geo/spain-comunidades.json',
+                electionDataPath: 'data/elections/2023-generales.json',
+                mapCenter: [40.4, -3.7],
+                mapZoom: 6,
+                geoIdProperty: null,
+                geoNameProperty: 'name'
+            };
+
             // Load geographic boundaries and election data
             const [geoJSON, electionData] = await Promise.all([
-                DataLoader.loadGeoJSON('data/geo/spain-comunidades.json'),
-                DataLoader.loadElectionData('data/elections/2023-generales.json')
+                DataLoader.loadGeoJSON(config.geoDataPath),
+                DataLoader.loadElectionData(config.electionDataPath)
             ]);
 
-            // Merge data
-            const mergedData = DataLoader.mergeData(geoJSON, electionData);
+            // Merge data (pass ID property for custom matching)
+            const mergedData = DataLoader.mergeData(geoJSON, electionData, config.geoIdProperty);
 
-            // Display on map
-            ElectionMap.loadData(mergedData, electionData);
+            // Display on map (pass config for map center/zoom)
+            ElectionMap.loadData(mergedData, electionData, config);
 
             // Create legend
             ElectionMap.createLegend(electionData);

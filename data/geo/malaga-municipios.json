@@ -1,0 +1,276 @@
+{
+  "type": "FeatureCollection",
+  "name": "Málaga Municipalities",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.1_1",
+        "NAME_4": "Málaga",
+        "NAME_3": "Málaga",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.478, 36.698], [-4.478, 36.748], [-4.428, 36.748],
+          [-4.378, 36.738], [-4.368, 36.708], [-4.398, 36.688],
+          [-4.448, 36.688], [-4.478, 36.698]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.2_1",
+        "NAME_4": "Marbella",
+        "NAME_3": "Marbella",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.938, 36.488], [-4.938, 36.528], [-4.888, 36.548],
+          [-4.838, 36.538], [-4.828, 36.498], [-4.858, 36.478],
+          [-4.908, 36.478], [-4.938, 36.488]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.3_1",
+        "NAME_4": "Vélez-Málaga",
+        "NAME_3": "Vélez-Málaga",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.118, 36.748], [-4.118, 36.798], [-4.068, 36.808],
+          [-4.018, 36.788], [-4.008, 36.748], [-4.038, 36.728],
+          [-4.088, 36.728], [-4.118, 36.748]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.4_1",
+        "NAME_4": "Fuengirola",
+        "NAME_3": "Fuengirola",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.638, 36.528], [-4.638, 36.558], [-4.608, 36.568],
+          [-4.578, 36.558], [-4.578, 36.528], [-4.598, 36.518],
+          [-4.628, 36.518], [-4.638, 36.528]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.5_1",
+        "NAME_4": "Mijas",
+        "NAME_3": "Mijas",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.658, 36.568], [-4.658, 36.618], [-4.608, 36.628],
+          [-4.568, 36.608], [-4.568, 36.568], [-4.598, 36.558],
+          [-4.638, 36.558], [-4.658, 36.568]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.6_1",
+        "NAME_4": "Estepona",
+        "NAME_3": "Estepona",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-5.168, 36.398], [-5.168, 36.458], [-5.108, 36.478],
+          [-5.058, 36.458], [-5.048, 36.408], [-5.078, 36.388],
+          [-5.138, 36.388], [-5.168, 36.398]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.7_1",
+        "NAME_4": "Torremolinos",
+        "NAME_3": "Torremolinos",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.518, 36.608], [-4.518, 36.638], [-4.488, 36.648],
+          [-4.458, 36.638], [-4.458, 36.608], [-4.478, 36.598],
+          [-4.508, 36.598], [-4.518, 36.608]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.8_1",
+        "NAME_4": "Benalmádena",
+        "NAME_3": "Benalmádena",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.578, 36.578], [-4.578, 36.618], [-4.528, 36.628],
+          [-4.498, 36.608], [-4.498, 36.578], [-4.518, 36.568],
+          [-4.558, 36.568], [-4.578, 36.578]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.9_1",
+        "NAME_4": "Rincón de la Victoria",
+        "NAME_3": "Rincón de la Victoria",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.288, 36.698], [-4.288, 36.738], [-4.238, 36.748],
+          [-4.198, 36.728], [-4.198, 36.698], [-4.218, 36.688],
+          [-4.268, 36.688], [-4.288, 36.698]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.10_1",
+        "NAME_4": "Antequera",
+        "NAME_3": "Antequera",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.618, 36.998], [-4.618, 37.078], [-4.518, 37.108],
+          [-4.448, 37.078], [-4.438, 36.998], [-4.478, 36.958],
+          [-4.568, 36.958], [-4.618, 36.998]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.11_1",
+        "NAME_4": "Ronda",
+        "NAME_3": "Ronda",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-5.218, 36.698], [-5.218, 36.788], [-5.118, 36.818],
+          [-5.038, 36.788], [-5.018, 36.708], [-5.058, 36.668],
+          [-5.168, 36.668], [-5.218, 36.698]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.12_1",
+        "NAME_4": "Alhaurín de la Torre",
+        "NAME_3": "Alhaurín de la Torre",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.598, 36.638], [-4.598, 36.678], [-4.548, 36.688],
+          [-4.518, 36.668], [-4.518, 36.638], [-4.538, 36.628],
+          [-4.578, 36.628], [-4.598, 36.638]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.13_1",
+        "NAME_4": "Nerja",
+        "NAME_3": "Nerja",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-3.878, 36.728], [-3.878, 36.768], [-3.828, 36.778],
+          [-3.788, 36.758], [-3.788, 36.728], [-3.808, 36.718],
+          [-3.858, 36.718], [-3.878, 36.728]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.14_1",
+        "NAME_4": "Coín",
+        "NAME_3": "Coín",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.778, 36.638], [-4.778, 36.698], [-4.708, 36.718],
+          [-4.658, 36.698], [-4.658, 36.638], [-4.688, 36.618],
+          [-4.748, 36.618], [-4.778, 36.638]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "GID_4": "ESP.4.29.15_1",
+        "NAME_4": "Alhaurín el Grande",
+        "NAME_3": "Alhaurín el Grande",
+        "NAME_2": "Málaga",
+        "NAME_1": "Andalucía"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-4.708, 36.588], [-4.708, 36.638], [-4.658, 36.648],
+          [-4.618, 36.628], [-4.618, 36.588], [-4.638, 36.578],
+          [-4.688, 36.578], [-4.708, 36.588]
+        ]]
+      }
+    }
+  ]
+}

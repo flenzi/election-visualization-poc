@@ -233,10 +233,11 @@
     <div class="container">
         <div class="hero">
             <h1>🗳️ Election Results Map</h1>
-            <p>Spain - General Elections 2023</p>
-            <p class="subtitle">Interactive Visualization of Congress of Deputies</p>
+            <p>Interactive Visualizations of Spanish Elections</p>
+            <p class="subtitle">Multiple datasets and implementations</p>
         </div>
 
+        <h2 style="color: white; text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem;">Spain - General Elections 2023</h2>
         <div class="implementations">
             <!-- Leaflet Implementation -->
             <a href="leaflet.html" class="card">
@@ -327,6 +328,43 @@
                 ideal for large datasets and smooth animations. Leaflet uses traditional Canvas/SVG rendering which is lighter
                 and more widely compatible.
             </p>
+        </div>
+
+        <h2 style="color: white; text-align: center; margin: 3rem 0 1.5rem 0; font-size: 1.5rem;">Málaga - Municipal Elections 2023</h2>
+        <div class="implementations">
+            <!-- Málaga Leaflet Implementation -->
+            <a href="malaga-leaflet.html" class="card">
+                <div class="card-icon">🏛️</div>
+                <h2>Málaga Municipalities (Leaflet)</h2>
+                <div class="tech-stack">Leaflet 1.9.4 + GADM Level 4</div>
+                <p>Municipality-level electoral results for Málaga province. Visualize local elections across 15 major municipalities including Málaga city, Marbella, and Vélez-Málaga.</p>
+
+                <ul class="features">
+                    <li>15 municipalities visualized</li>
+                    <li>Municipal elections 2023</li>
+                    <li>GADM Level 4 boundaries</li>
+                    <li>Local party support</li>
+                </ul>
+
+                <span class="btn">Open Málaga Map (Leaflet) →</span>
+            </a>
+
+            <!-- Málaga MapLibre Implementation -->
+            <a href="malaga-maplibre.html" class="card">
+                <div class="card-icon">🏙️</div>
+                <h2>Málaga Municipalities (MapLibre)</h2>
+                <div class="tech-stack">MapLibre GL JS 3.6 + GADM Level 4</div>
+                <p>Municipality-level electoral results for Málaga province with WebGL rendering. Smooth performance with detailed geographic boundaries from GADM.</p>
+
+                <ul class="features">
+                    <li>Hardware-accelerated rendering</li>
+                    <li>Smooth zoom to municipalities</li>
+                    <li>Detailed GADM boundaries</li>
+                    <li>OpenStreetMap base layer</li>
+                </ul>
+
+                <span class="btn">Open Málaga Map (MapLibre) →</span>
+            </a>
         </div>
 
         <div class="footer">

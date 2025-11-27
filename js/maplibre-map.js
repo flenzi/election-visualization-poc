@@ -54,7 +54,7 @@ const MapLibreMap = {
     /**
      * Load and display data
      */
-    async loadData(geoJSON, electionData) {
+    async loadData(geoJSON, electionData, config = null) {
         this.currentGeoJSON = geoJSON;
         this.currentElectionData = electionData;
 
@@ -108,6 +108,12 @@ const MapLibreMap = {
 
         // Add interactivity
         this.setupInteractions();
+
+        // Set view based on config if provided
+        if (config && config.mapCenter && config.mapZoom) {
+            this.map.setCenter(config.mapCenter);
+            this.map.setZoom(config.mapZoom);
+        }
     },
 
     /**

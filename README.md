@@ -1,6 +1,10 @@
 # Election Results Map Visualization - Spain
 
-An interactive web-based visualization of Spanish election results with **two implementations**: Leaflet.js and MapLibre GL JS. This proof-of-concept (POC) displays the 2023 general election results on a choropleth map of Spain's autonomous communities.
+An interactive web-based visualization of Spanish election results with **multiple datasets and implementations**. This proof-of-concept (POC) includes:
+- **National Level**: 2023 general election results for Spain's autonomous communities
+- **Municipal Level**: 2023 municipal election results for Málaga province municipalities
+
+Both datasets are available in **Leaflet.js** and **MapLibre GL JS** implementations.
 
 ## Features
 
@@ -36,9 +40,13 @@ An interactive web-based visualization of Spanish election results with **two im
 
 View the live demo: **[https://flenzi.github.io/election-visualization-poc/](https://flenzi.github.io/election-visualization-poc/)**
 
-- **Main Page**: Choose between implementations
+### Spain - General Elections 2023
 - **Leaflet Version**: [https://flenzi.github.io/election-visualization-poc/leaflet.html](https://flenzi.github.io/election-visualization-poc/leaflet.html)
 - **MapLibre GL JS Version**: [https://flenzi.github.io/election-visualization-poc/maplibre.html](https://flenzi.github.io/election-visualization-poc/maplibre.html)
+
+### Málaga - Municipal Elections 2023
+- **Leaflet Version**: [https://flenzi.github.io/election-visualization-poc/malaga-leaflet.html](https://flenzi.github.io/election-visualization-poc/malaga-leaflet.html)
+- **MapLibre GL JS Version**: [https://flenzi.github.io/election-visualization-poc/malaga-maplibre.html](https://flenzi.github.io/election-visualization-poc/malaga-maplibre.html)
 
 ## Technologies Used
 
@@ -59,9 +67,11 @@ View the live demo: **[https://flenzi.github.io/election-visualization-poc/](htt
 
 ```
 election-visualization-poc/
-├── index.html                       # Main landing page (implementation selector)
-├── leaflet.html                     # Leaflet.js implementation
-├── maplibre.html                    # MapLibre GL JS implementation
+├── index.html                       # Main landing page
+├── leaflet.html                     # Spain national - Leaflet.js
+├── maplibre.html                    # Spain national - MapLibre GL JS
+├── malaga-leaflet.html              # Málaga municipal - Leaflet.js
+├── malaga-maplibre.html             # Málaga municipal - MapLibre GL JS
 ├── css/
 │   └── styles.css                   # Shared application styles
 ├── js/
@@ -73,9 +83,11 @@ election-visualization-poc/
 │   └── maplibre-map.js             # MapLibre map rendering
 ├── data/
 │   ├── geo/
-│   │   └── spain-comunidades.json  # GeoJSON (659KB) - for both implementations
+│   │   ├── spain-comunidades.json  # National boundaries (659KB)
+│   │   └── malaga-municipios.json  # Málaga municipalities (GADM Level 4)
 │   └── elections/
-│       └── 2023-generales.json     # Election results data
+│       ├── 2023-generales.json     # National election results
+│       └── 2023-malaga-municipales.json  # Málaga municipal results
 ├── assets/                          # Static assets
 └── README.md
 ```
@@ -103,17 +115,47 @@ election-visualization-poc/
 ## Data Sources
 
 ### Geographic Boundaries
+
+#### National Level (Autonomous Communities)
 - **Source**: codeforgermany/click_that_hood (high-quality community data)
-- **Format**: GeoJSON (RFC 7946) - 659KB - used by both implementations
+- **Format**: GeoJSON (RFC 7946) - 659KB
 - **Coordinate System**: WGS84 (EPSG:4326)
 - **Regions**: All 19 Spanish regions (17 Autonomous Communities + Ceuta & Melilla)
 - **Quality**: 23,179 coordinate points total across all regions
 
+#### Municipal Level (Málaga Province)
+- **Source**: GADM (Database of Global Administrative Areas)
+- **Level**: Level 4 (Municipality boundaries)
+- **Format**: GeoJSON
+- **Version**: GADM 4.1
+- **Coverage**: 15 major municipalities in Málaga province
+- **Download Instructions**:
+  1. Visit [GADM Download Page](https://gadm.org/download_country.html)
+  2. Select "Spain" from the country list
+  3. Choose "GeoJSON" format
+  4. Download Level 4 (municipalities)
+  5. Extract and filter for Málaga province (NAME_2 = "Málaga")
+
+  **Alternative Sources**:
+  - [OpenDataSoft Spain Municipalities](https://data.opendatasoft.com/explore/dataset/georef-spain-municipio@public/export/)
+  - [mapSpain R Package](https://ropenspain.github.io/mapSpain/) - Filter for Málaga
+
+**Note**: The current `malaga-municipios.json` contains sample geometries for demonstration. Replace with actual GADM data for production use.
+
 ### Election Data
+
+#### National Elections
 - **Election**: 2023 Spanish General Elections (Congreso de los Diputados)
 - **Date**: July 23, 2023
 - **Format**: JSON
 - **Data**: Sample data based on 2023 general election results
+
+#### Municipal Elections (Málaga)
+- **Election**: 2023 Spanish Municipal Elections (Ayuntamientos)
+- **Date**: May 28, 2023
+- **Format**: JSON
+- **Coverage**: 15 municipalities in Málaga province
+- **Data**: Sample data based on 2023 municipal election results
 
 ## Party Colors
 
@@ -267,21 +309,25 @@ getPartyColor(party) {
 ## Known Limitations
 
 - Sample election data based on 2023 results (not real-time)
-- No municipality-level detail (only autonomous communities)
 - Static data (no automatic updates)
 - Simplified island geometries for Canary Islands
+- **Málaga municipalities**: Sample geometries provided - replace with actual GADM Level 4 data for accurate boundaries
+- Municipal data limited to 15 major municipalities in Málaga province (103 total municipalities in the province)
 
 ## Future Enhancements
 
 - [ ] Add provincia-level visualization
-- [ ] Municipality-level detail on zoom
-- [ ] Multiple election comparison
+- [x] Municipality-level detail (completed for Málaga)
+- [ ] Expand municipality coverage to all 103 Málaga municipalities
+- [ ] Add municipality visualizations for other provinces
+- [ ] Multiple election comparison (time-series view)
 - [ ] Export functionality (PNG, SVG, PDF)
 - [ ] Time-series animation
 - [ ] Vote share gradient visualization
 - [ ] Turnout percentage view
 - [ ] Real-time data integration
 - [ ] Multi-language support (Spanish/English/Catalan)
+- [ ] Replace sample GADM geometries with actual GADM Level 4 data
 
 ## Contributing
 
@@ -302,8 +348,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Leaflet**: For the excellent mapping library
 - **MapLibre GL JS**: For the modern WebGL mapping library
 - **OpenStreetMap**: For base map tiles
-- **codeforgermany/click_that_hood**: For high-quality GeoJSON data
-- Election data structure inspired by real 2023 Spanish general election results
+- **codeforgermany/click_that_hood**: For high-quality national-level GeoJSON data
+- **GADM**: For providing comprehensive global administrative boundaries
+- Election data structure inspired by real 2023 Spanish general and municipal election results
 
 ## Contact
 

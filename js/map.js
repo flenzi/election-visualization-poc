@@ -35,7 +35,7 @@ const ElectionMap = {
     /**
      * Load and display election data on the map
      */
-    loadData(geoJSON, electionData) {
+    loadData(geoJSON, electionData, config = null) {
         this.currentGeoJSON = geoJSON;
         this.currentElectionData = electionData;
 
@@ -50,8 +50,13 @@ const ElectionMap = {
             onEachFeature: this.onEachFeature.bind(this)
         }).addTo(this.map);
 
-        // Fit map to bounds
-        this.map.fitBounds(this.geoJSONLayer.getBounds());
+        // Set view based on config if provided
+        if (config && config.mapCenter && config.mapZoom) {
+            this.map.setView(config.mapCenter, config.mapZoom);
+        } else {
+            // Fit map to bounds
+            this.map.fitBounds(this.geoJSONLayer.getBounds());
+        }
     },
 
     /**
