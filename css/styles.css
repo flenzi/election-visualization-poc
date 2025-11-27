@@ -485,7 +485,17 @@ header h1 {
     font-size: 1rem;
 }
 
-/* Responsive Design */
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================
+
+   Breakpoints:
+   - Mobile: ≤768px (bottom sheet panels, header buttons, 40vh results)
+   - Tablet: 769-1024px (slower transitions, 300px results panel)
+   - Desktop: >1024px (hover panels, 350px results panel)
+
+   ============================================================================ */
+
 /* Tablet (769px - 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
     .results-panel {
@@ -493,6 +503,7 @@ header h1 {
     }
 }
 
+/* Mobile (≤768px) */
 @media (max-width: 768px) {
     header {
         position: relative;

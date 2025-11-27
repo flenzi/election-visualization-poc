@@ -168,22 +168,34 @@ const ElectionMap = {
         // Fly to the selected region with smooth animation
         const bounds = layer.getBounds();
 
-        // Detect device type
+        // Detect device type for responsive transitions
         const width = window.innerWidth;
         const isMobile = width <= 768;
         const isTablet = width > 768 && width <= 1024;
 
-        // Different settings for mobile, tablet, and desktop
+        /**
+         * Device-specific transition settings for optimal centering:
+         *
+         * Mobile (≤768px): Results panel below map (40vh)
+         *   - Bottom padding: 250px (accounts for results panel)
+         *   - Max zoom: 7, Duration: 1.5s
+         *
+         * Tablet (769-1024px): Results panel on right (300px)
+         *   - Right padding: 350px (optimized centering)
+         *   - Max zoom: 7.5, Duration: 2s (slower for better UX)
+         *
+         * Desktop (>1024px): Results panel on right (350px)
+         *   - Right padding: 450px (optimal centering)
+         *   - Max zoom: 8, Duration: 1.5s
+         */
         if (isMobile) {
-            // Mobile: results panel is below (40vh), so use vertical padding
             this.map.flyToBounds(bounds, {
                 paddingTopLeft: [20, 20],
-                paddingBottomRight: [20, 250], // Extra bottom padding for results panel
+                paddingBottomRight: [20, 250],
                 maxZoom: 7,
                 duration: 1.5
             });
         } else if (isTablet) {
-            // Tablet: results panel on right (300px), slower transitions
             this.map.flyToBounds(bounds, {
                 paddingTopLeft: [40, 40],
                 paddingBottomRight: [350, 40],
@@ -191,10 +203,9 @@ const ElectionMap = {
                 duration: 2
             });
         } else {
-            // Desktop: results panel on right (350px), use horizontal padding
             this.map.flyToBounds(bounds, {
                 paddingTopLeft: [50, 50],
-                paddingBottomRight: [450, 50], // Large right padding for panel
+                paddingBottomRight: [450, 50],
                 maxZoom: 8,
                 duration: 1.5
             });

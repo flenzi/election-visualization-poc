@@ -8,9 +8,12 @@ An interactive web-based visualization of Spanish election results with **two im
 - **Interactive Map**: Explore election results across all 19 Spanish regions (17 autonomous communities + Ceuta & Melilla)
 - **Choropleth Visualization**: Regions colored by winning party
 - **Detailed Results Panel**: Click on any region to see detailed election statistics
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
+- **Collapsible Panels**: Hover-activated on desktop, click-activated on mobile
+- **Regions List**: Quick navigation to any autonomous community
 - **Party Legend**: Visual reference for political parties and their colors
 - **Hover Tooltips**: Quick region identification on hover
+- **Smooth Transitions**: Animated fly-to-region with centering
+- **Fully Responsive**: Optimized layouts for mobile (≤768px), tablet (769-1024px), and desktop (>1024px)
 
 ### Implementation-Specific Features
 
@@ -18,11 +21,12 @@ An interactive web-based visualization of Spanish election results with **two im
 - Lightweight and fast (~40KB library)
 - Tile-based map controls
 - Standard zoom and pan controls
+- Smooth flyToBounds transitions with device-specific padding
 - Optimized for mobile devices
 
 **MapLibre GL JS Version:**
 - Modern WebGL-powered rendering (~700KB library)
-- **Auto-fly to selected region** with smooth animations
+- Smooth fitBounds animations with device-specific padding
 - Hardware-accelerated graphics (GPU)
 - Vector-based rendering
 - OpenStreetMap base layer
@@ -62,6 +66,7 @@ election-visualization-poc/
 │   └── styles.css                   # Shared application styles
 ├── js/
 │   ├── data-loader.js              # Shared data fetching and processing
+│   ├── ui-toggle.js                # Shared UI panel toggle logic (hover/click)
 │   ├── app.js                      # Leaflet application logic
 │   ├── map.js                      # Leaflet map rendering
 │   ├── maplibre-app.js             # MapLibre application logic
@@ -83,8 +88,8 @@ election-visualization-poc/
 | **Data Format** | GeoJSON (659KB) | GeoJSON (659KB) |
 | **Total Load Size** | ~699KB | ~1359KB |
 | **Rendering** | Canvas/SVG hybrid | WebGL (GPU accelerated) |
-| **Animation** | Basic | Smooth, hardware accelerated |
-| **Fly to Region** | Manual | Automatic on click |
+| **Animation** | flyToBounds (1.5s desktop, 2s tablet) | fitBounds (1.5s desktop, 2s tablet) |
+| **Transitions** | Device-specific padding | Device-specific padding |
 | **Base Map** | Optional | OpenStreetMap included |
 | **Performance** | Good for medium datasets | Excellent for large datasets |
 | **Best For** | General use, simplicity | Modern apps, performance |
@@ -238,13 +243,18 @@ getPartyColor(party) {
 }
 ```
 
-## Accessibility Features
+## Accessibility & UX Features
 
 - Keyboard navigation support
 - ARIA labels for screen readers
 - High contrast color scheme
 - Focus indicators for interactive elements
-- Responsive design for mobile devices
+- Device-specific responsive layouts:
+  - **Mobile** (≤768px): Bottom sheet panels, header-positioned buttons, 40vh results panel
+  - **Tablet** (769-1024px): Slower 2s transitions, optimized padding (300-350px)
+  - **Desktop** (>1024px): Hover-activated panels with 300ms delay, side-positioned results panel
+- Smooth scroll behavior with sticky headers (z-index optimized)
+- Touch-friendly large tap targets on mobile (0.75rem padding)
 
 ## Browser Compatibility
 

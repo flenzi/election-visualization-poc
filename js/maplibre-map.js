@@ -201,28 +201,39 @@ const MapLibreMap = {
         // Fly to the region
         const bounds = this.getFeatureBounds(feature);
         if (bounds) {
-            // Detect device type
+            // Detect device type for responsive transitions
             const width = window.innerWidth;
             const isMobile = width <= 768;
             const isTablet = width > 768 && width <= 1024;
 
-            // Different settings for mobile, tablet, and desktop
+            /**
+             * Device-specific transition settings for optimal centering:
+             *
+             * Mobile (≤768px): Results panel below map (40vh)
+             *   - Bottom padding: 250px (accounts for results panel)
+             *   - Max zoom: 7, Duration: 1500ms
+             *
+             * Tablet (769-1024px): Results panel on right (300px)
+             *   - Right padding: 350px (optimized centering)
+             *   - Max zoom: 7.5, Duration: 2000ms (slower for better UX)
+             *
+             * Desktop (>1024px): Results panel on right (350px)
+             *   - Right padding: 450px (optimal centering)
+             *   - Max zoom: 8, Duration: 1500ms
+             */
             if (isMobile) {
-                // Mobile: results panel is below (40vh ~= 320px), use bottom padding
                 this.map.fitBounds(bounds, {
                     padding: {top: 20, bottom: 250, left: 20, right: 20},
                     duration: 1500,
                     maxZoom: 7
                 });
             } else if (isTablet) {
-                // Tablet: results panel on right (300px), slower transitions
                 this.map.fitBounds(bounds, {
                     padding: {top: 80, bottom: 80, left: 40, right: 350},
                     duration: 2000,
                     maxZoom: 7.5
                 });
             } else {
-                // Desktop: results panel on right (350px), use horizontal padding
                 this.map.fitBounds(bounds, {
                     padding: {top: 100, bottom: 100, left: 50, right: 450},
                     duration: 1500,

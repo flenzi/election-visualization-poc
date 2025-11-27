@@ -1,8 +1,16 @@
 /**
  * UI Toggle Module
- * Handles toggle functionality for legend and regions list
- * Desktop: Hover to show/hide
- * Mobile: Click to show/hide
+ * Handles toggle functionality for legend and regions list panels
+ *
+ * Interaction Model:
+ * - Desktop (>768px): Hover to show panels with 300ms delayed hide on mouse out
+ * - Mobile (≤768px): Click to toggle panels, with close button support
+ *
+ * Features:
+ * - Timeout management to prevent premature panel hiding
+ * - Smooth transitions between hover/click states
+ * - Automatic re-initialization on window resize
+ * - Device-specific event handling
  */
 
 const UIToggle = {
@@ -156,13 +164,14 @@ const UIToggle = {
         // Initialize on load
         initializeVisibility();
 
-        // Re-initialize on window resize
+        // Re-initialize on window resize (debounced to 150ms)
+        // Reload is necessary to switch between hover and click event handlers
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 initializeVisibility();
-                // Need to re-attach event listeners if switching between mobile/desktop
+                // Page reload required to re-attach correct event listeners for new device type
                 location.reload();
             }, 150);
         });
