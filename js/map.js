@@ -124,8 +124,8 @@ const ElectionMap = {
         // Re-highlight if this is the selected feature
         if (this.selectedFeature && this.selectedFeature === e.target) {
             e.target.setStyle({
-                weight: 4,
-                color: '#333',
+                weight: 3,
+                color: 'white',
                 fillOpacity: 0.9
             });
         }
@@ -146,8 +146,8 @@ const ElectionMap = {
         // Highlight new selection
         this.selectedFeature = layer;
         layer.setStyle({
-            weight: 4,
-            color: '#333',
+            weight: 3,
+            color: 'white',
             fillOpacity: 0.9
         });
 

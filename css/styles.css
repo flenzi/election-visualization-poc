@@ -552,17 +552,18 @@ header h1 {
     }
 
     .regions-list.visible {
-        top: 0;
         bottom: 0;
+        left: 0;
         right: 0;
-        left: auto;
-        border-radius: 16px 0 0 16px;
-        max-height: 100vh;
-        max-width: 85vw;
-        min-width: 260px;
-        padding: 1rem 1.25rem;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+        top: auto;
+        border-radius: 16px 16px 0 0;
+        max-height: 60vh;
+        min-width: unset;
+        max-width: unset;
+        padding: 1rem 1.25rem 1.5rem;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
         z-index: 1002;
+        overflow-y: auto;
     }
 
     /* Toggle buttons on mobile - restore original positions */
@@ -574,10 +575,10 @@ header h1 {
     }
 
     .toggle-btn-regions {
-        top: 100px !important;
-        right: 1rem !important;
-        left: auto !important;
-        bottom: auto !important;
+        bottom: 4rem !important;
+        left: 1rem !important;
+        right: auto !important;
+        top: auto !important;
         padding: 0.6rem 0.9rem;
         font-size: 0.8rem;
     }
@@ -585,6 +586,20 @@ header h1 {
     .legend h3 {
         font-size: 0.85rem;
         margin-bottom: 0.5rem;
+    }
+
+    /* Larger touch targets for region list on mobile */
+    .region-list-item {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 8px;
+        margin-bottom: 0.25rem;
+    }
+
+    .regions-list h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
     }
 
     header h1 {
