@@ -394,6 +394,7 @@ header h1 {
     justify-content: space-between;
     align-items: center;
     margin: -0.25rem 0 0.75rem 0;
+    z-index: 10;
 }
 
 .regions-list-items {
@@ -485,6 +486,13 @@ header h1 {
 }
 
 /* Responsive Design */
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .results-panel {
+        width: 300px;
+    }
+}
+
 @media (max-width: 768px) {
     .main-content {
         flex-direction: column;
@@ -566,19 +574,20 @@ header h1 {
         overflow-y: auto;
     }
 
-    /* Toggle buttons on mobile - restore original positions */
+    /* Toggle buttons on mobile - move to top to avoid overlapping results */
     .toggle-btn-legend {
-        bottom: 1rem !important;
-        left: 1rem !important;
+        top: 0.75rem !important;
+        left: 0.75rem !important;
+        bottom: auto !important;
         padding: 0.6rem 0.9rem;
         font-size: 0.8rem;
     }
 
     .toggle-btn-regions {
-        bottom: 4rem !important;
-        left: 1rem !important;
+        top: 3.5rem !important;
+        left: 0.75rem !important;
         right: auto !important;
-        top: auto !important;
+        bottom: auto !important;
         padding: 0.6rem 0.9rem;
         font-size: 0.8rem;
     }
@@ -599,7 +608,9 @@ header h1 {
     .regions-list h3 {
         font-size: 0.95rem;
         margin-bottom: 0.75rem;
-        padding-bottom: 0.75rem;
+        padding: 0.5rem 0 0.75rem 0;
+        margin-top: -0.5rem;
+        z-index: 10;
     }
 
     header h1 {

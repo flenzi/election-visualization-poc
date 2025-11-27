@@ -201,16 +201,25 @@ const MapLibreMap = {
         // Fly to the region
         const bounds = this.getFeatureBounds(feature);
         if (bounds) {
-            // Check if mobile
-            const isMobile = window.innerWidth <= 768;
+            // Detect device type
+            const width = window.innerWidth;
+            const isMobile = width <= 768;
+            const isTablet = width > 768 && width <= 1024;
 
-            // Different settings for mobile vs desktop
+            // Different settings for mobile, tablet, and desktop
             if (isMobile) {
                 // Mobile: results panel is below (40vh ~= 320px), use bottom padding
                 this.map.fitBounds(bounds, {
                     padding: {top: 20, bottom: 250, left: 20, right: 20},
                     duration: 1500,
                     maxZoom: 7
+                });
+            } else if (isTablet) {
+                // Tablet: results panel on right (300px), slower transitions
+                this.map.fitBounds(bounds, {
+                    padding: {top: 80, bottom: 80, left: 40, right: 350},
+                    duration: 2000,
+                    maxZoom: 7.5
                 });
             } else {
                 // Desktop: results panel on right (350px), use horizontal padding

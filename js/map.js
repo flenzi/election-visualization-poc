@@ -168,10 +168,12 @@ const ElectionMap = {
         // Fly to the selected region with smooth animation
         const bounds = layer.getBounds();
 
-        // Check if mobile
-        const isMobile = window.innerWidth <= 768;
+        // Detect device type
+        const width = window.innerWidth;
+        const isMobile = width <= 768;
+        const isTablet = width > 768 && width <= 1024;
 
-        // Different settings for mobile vs desktop
+        // Different settings for mobile, tablet, and desktop
         if (isMobile) {
             // Mobile: results panel is below (40vh), so use vertical padding
             this.map.flyToBounds(bounds, {
@@ -179,6 +181,14 @@ const ElectionMap = {
                 paddingBottomRight: [20, 250], // Extra bottom padding for results panel
                 maxZoom: 7,
                 duration: 1.5
+            });
+        } else if (isTablet) {
+            // Tablet: results panel on right (300px), slower transitions
+            this.map.flyToBounds(bounds, {
+                paddingTopLeft: [40, 40],
+                paddingBottomRight: [350, 40],
+                maxZoom: 7.5,
+                duration: 2
             });
         } else {
             // Desktop: results panel on right (350px), use horizontal padding
