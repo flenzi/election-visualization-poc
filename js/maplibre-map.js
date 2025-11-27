@@ -1,0 +1,422 @@
+/**
+ * MapLibre GL JS Map Module
+ * Handles MapLibre map rendering and interactions
+ */
+
+const MapLibreMap = {
+    map: null,
+    currentGeoJSON: null,
+    currentElectionData: null,
+    selectedFeatureId: null,
+
+    /**
+     * Initialize the MapLibre map
+     */
+    init(containerId = 'map') {
+        // Create map centered on Spain
+        this.map = new maplibregl.Map({
+            container: containerId,
+            style: {
+                version: 8,
+                sources: {
+                    'osm': {
+                        type: 'raster',
+                        tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                        tileSize: 256,
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }
+                },
+                layers: [{
+                    id: 'osm',
+                    type: 'raster',
+                    source: 'osm',
+                    minzoom: 0,
+                    maxzoom: 19
+                }]
+            },
+            center: [-3.7, 40.4],
+            zoom: 5.5,
+            minZoom: 5,
+            maxZoom: 12
+        });
+
+        // Add navigation controls
+        this.map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+        // Wait for map to load before adding data
+        this.map.on('load', () => {
+            console.log('MapLibre map loaded');
+        });
+
+        return this.map;
+    },
+
+    /**
+     * Load and display data
+     */
+    async loadData(geoJSON, electionData) {
+        this.currentGeoJSON = geoJSON;
+        this.currentElectionData = electionData;
+
+        // Wait for map to be fully loaded
+        if (!this.map.loaded()) {
+            await new Promise(resolve => this.map.once('load', resolve));
+        }
+
+        // Add GeoJSON source
+        this.map.addSource('regions', {
+            type: 'geojson',
+            data: geoJSON
+        });
+
+        // Add fill layer for regions
+        this.map.addLayer({
+            id: 'regions-fill',
+            type: 'fill',
+            source: 'regions',
+            paint: {
+                'fill-color': ['get', 'fillColor'],
+                'fill-opacity': 0.7
+            }
+        });
+
+        // Add border layer
+        this.map.addLayer({
+            id: 'regions-border',
+            type: 'line',
+            source: 'regions',
+            paint: {
+                'line-color': '#ffffff',
+                'line-width': 2
+            }
+        });
+
+        // Add hover layer
+        this.map.addLayer({
+            id: 'regions-hover',
+            type: 'line',
+            source: 'regions',
+            paint: {
+                'line-color': '#333',
+                'line-width': 3
+            },
+            filter: ['==', 'iso_3166_2', '']
+        });
+
+        // Set colors based on election results
+        this.updateColors();
+
+        // Add interactivity
+        this.setupInteractions();
+    },
+
+    /**
+     * Update feature colors based on election results
+     */
+    updateColors() {
+        this.currentGeoJSON.features.forEach(feature => {
+            // Get election data for this region
+            const electionData = feature.properties.electionData;
+
+            if (electionData && electionData.winner) {
+                feature.properties.fillColor = DataLoader.getPartyColor(electionData.winner);
+            } else {
+                feature.properties.fillColor = '#cccccc';
+            }
+        });
+
+        // Update the source
+        this.map.getSource('regions').setData(this.currentGeoJSON);
+    },
+
+    /**
+     * Setup map interactions
+     */
+    setupInteractions() {
+        // Change cursor on hover
+        this.map.on('mouseenter', 'regions-fill', () => {
+            this.map.getCanvas().style.cursor = 'pointer';
+        });
+
+        this.map.on('mouseleave', 'regions-fill', () => {
+            this.map.getCanvas().style.cursor = '';
+        });
+
+        // Highlight on hover
+        this.map.on('mousemove', 'regions-fill', (e) => {
+            if (e.features.length > 0) {
+                const feature = e.features[0];
+                this.map.setFilter('regions-hover', ['==', 'iso_3166_2', feature.properties.iso_3166_2]);
+            }
+        });
+
+        this.map.on('mouseleave', 'regions-fill', () => {
+            this.map.setFilter('regions-hover', ['==', 'iso_3166_2', '']);
+        });
+
+        // Click to select region
+        this.map.on('click', 'regions-fill', (e) => {
+            if (e.features.length > 0) {
+                const feature = e.features[0];
+                this.selectRegion(feature);
+            }
+        });
+    },
+
+    /**
+     * Select a region and display results
+     */
+    selectRegion(feature) {
+        const properties = feature.properties;
+
+        // Try multiple property names for region code (same as data loader)
+        const regionCode = properties.iso_3166_2 ||
+                          properties.ISO_3166_2 ||
+                          properties.code;
+
+        if (!regionCode) {
+            console.error('No region code found in properties:', properties);
+            return;
+        }
+
+        // Store selected feature
+        this.selectedFeatureId = regionCode;
+
+        // Get election data for this region
+        const electionData = this.currentElectionData?.results?.[regionCode];
+
+        if (!electionData) {
+            console.warn(`No election data found for region code: ${regionCode}`);
+        }
+
+        // Display results in panel
+        this.displayResults(regionCode, electionData, properties);
+
+        // Update regions list selection
+        document.querySelectorAll('.region-list-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        document.querySelector(`[data-region-code="${regionCode}"]`)?.classList.add('selected');
+
+        // Fly to the region
+        const bounds = this.getFeatureBounds(feature);
+        if (bounds) {
+            // Detect device type for responsive transitions
+            const width = window.innerWidth;
+            const isMobile = width <= 768;
+            const isTablet = width > 768 && width <= 1024;
+
+            /**
+             * Device-specific transition settings for optimal centering:
+             *
+             * Mobile (≤768px): Results panel below map (40vh)
+             *   - Bottom padding: 250px (accounts for results panel)
+             *   - Max zoom: 7, Duration: 1500ms
+             *
+             * Tablet (769-1024px): Results panel on right (300px)
+             *   - Right padding: 350px (optimized centering)
+             *   - Max zoom: 7.5, Duration: 2000ms (slower for better UX)
+             *
+             * Desktop (>1024px): Results panel on right (350px)
+             *   - Right padding: 450px (optimal centering)
+             *   - Max zoom: 8, Duration: 1500ms
+             */
+            if (isMobile) {
+                this.map.fitBounds(bounds, {
+                    padding: {top: 20, bottom: 250, left: 20, right: 20},
+                    duration: 1500,
+                    maxZoom: 7
+                });
+            } else if (isTablet) {
+                this.map.fitBounds(bounds, {
+                    padding: {top: 80, bottom: 80, left: 40, right: 350},
+                    duration: 2000,
+                    maxZoom: 7.5
+                });
+            } else {
+                this.map.fitBounds(bounds, {
+                    padding: {top: 100, bottom: 100, left: 50, right: 450},
+                    duration: 1500,
+                    maxZoom: 8
+                });
+            }
+        }
+    },
+
+    /**
+     * Get bounds for a feature
+     */
+    getFeatureBounds(feature) {
+        try {
+            let coords = [];
+
+            if (feature.geometry.type === 'Polygon') {
+                coords = feature.geometry.coordinates[0];
+            } else if (feature.geometry.type === 'MultiPolygon') {
+                feature.geometry.coordinates.forEach(polygon => {
+                    coords = coords.concat(polygon[0]);
+                });
+            }
+
+            if (coords.length === 0) return null;
+
+            const bounds = coords.reduce((bounds, coord) => {
+                return bounds.extend(coord);
+            }, new maplibregl.LngLatBounds(coords[0], coords[0]));
+
+            return bounds;
+        } catch (error) {
+            console.error('Error calculating bounds:', error);
+            return null;
+        }
+    },
+
+    /**
+     * Display results in panel
+     */
+    displayResults(regionCode, electionData, properties) {
+        const name = electionData?.name || properties?.name || 'Region';
+
+        if (!electionData) {
+            document.getElementById('panelContent').innerHTML = `
+                <div class="region-detail">
+                    <h2 class="region-name">${name}</h2>
+                    <p class="info-text">No data available for this region</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Sort parties by votes
+        const parties = Object.entries(electionData.parties || {})
+            .sort((a, b) => b[1].votes - a[1].votes);
+
+        const totalVotes = parties.reduce((sum, [_, data]) => sum + data.votes, 0);
+
+        // Build HTML
+        let html = `
+            <div class="region-detail">
+                <h2 class="region-name">${name}</h2>
+
+                <div class="region-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Turnout</div>
+                        <div class="stat-value">${DataLoader.formatPercentage(electionData.turnout || 0)}</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Total Votes</div>
+                        <div class="stat-value">${DataLoader.formatNumber(totalVotes)}</div>
+                    </div>
+                </div>
+
+                <div class="party-results">
+                    <h3>Results by Party</h3>
+        `;
+
+        parties.forEach(([partyCode, partyData]) => {
+            const color = DataLoader.getPartyColor(partyCode);
+            html += `
+                <div class="party-item" style="border-left-color: ${color}">
+                    <div class="party-color" style="background-color: ${color}"></div>
+                    <div class="party-info">
+                        <div class="party-name">${partyCode}</div>
+                        <div class="party-stats">
+                            <span class="party-percentage">${DataLoader.formatPercentage(partyData.percentage)}</span>
+                            <span>${DataLoader.formatNumber(partyData.votes)} votes</span>
+                            ${partyData.seats ? `<span>${partyData.seats} seats</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        document.getElementById('panelContent').innerHTML = html;
+    },
+
+    /**
+     * Create legend
+     */
+    createLegend(electionData) {
+        const parties = DataLoader.getParties(electionData);
+        const legendItems = document.getElementById('legendItems');
+
+        legendItems.innerHTML = '';
+
+        parties.forEach(party => {
+            const color = DataLoader.getPartyColor(party);
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `
+                <div class="legend-color" style="background-color: ${color}"></div>
+                <span>${party}</span>
+            `;
+            legendItems.appendChild(item);
+        });
+    },
+
+    /**
+     * Create regions list
+     */
+    createRegionsList(geoJSON, electionData) {
+        const regionsListItems = document.getElementById('regionsListItems');
+        regionsListItems.innerHTML = '';
+
+        // Get all regions with their names
+        const regions = geoJSON.features.map(feature => {
+            const regionCode = feature.properties.iso_3166_2 ||
+                              feature.properties.ISO_3166_2 ||
+                              feature.properties.code;
+            const regionData = electionData?.results?.[regionCode];
+            const name = regionData?.name || feature.properties.name || 'Unknown';
+
+            return {
+                code: regionCode,
+                name: name,
+                feature: feature
+            };
+        }).sort((a, b) => a.name.localeCompare(b.name));
+
+        // Create list items
+        regions.forEach(region => {
+            const item = document.createElement('div');
+            item.className = 'region-list-item';
+            item.textContent = region.name;
+            item.dataset.regionCode = region.code;
+
+            item.addEventListener('click', () => {
+                this.selectRegionByCode(region.code);
+            });
+
+            regionsListItems.appendChild(item);
+        });
+    },
+
+    /**
+     * Select region by code
+     */
+    selectRegionByCode(regionCode) {
+        // Find the feature by region code
+        const feature = this.currentGeoJSON.features.find(f => {
+            const code = f.properties.iso_3166_2 ||
+                        f.properties.ISO_3166_2 ||
+                        f.properties.code;
+            return code === regionCode;
+        });
+
+        if (feature) {
+            // Trigger the selection
+            this.selectRegion(feature);
+
+            // Update selected state in list
+            document.querySelectorAll('.region-list-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.querySelector(`[data-region-code="${regionCode}"]`)?.classList.add('selected');
+        }
+    }
+};

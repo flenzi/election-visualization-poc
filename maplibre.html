@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results Map - Spain (MapLibre GL JS)</title>
+
+    <!-- MapLibre GL CSS -->
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* MapLibre-specific styles */
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .maplibregl-popup-content {
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .maplibregl-ctrl-logo {
+            display: none !important;
+        }
+
+        /* Ensure legend and regions list are above map */
+        .maplibregl-canvas-container {
+            z-index: 0 !important;
+        }
+
+        .maplibregl-canvas {
+            z-index: 0 !important;
+        }
+
+        .legend,
+        .regions-list {
+            z-index: 1001 !important;
+            pointer-events: auto !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Election Results Map - Spain 2023</h1>
+            <p class="subtitle">General Elections - Congress of Deputies (MapLibre GL JS)</p>
+            <div style="margin-top: 0.5rem;">
+                <a href="index.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
+                    ← Back to home
+                </a>
+                <span style="color: rgba(255,255,255,0.5); margin: 0 0.5rem;">|</span>
+                <a href="leaflet.html" style="color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.9;">
+                    View Leaflet version
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Map Container -->
+            <div id="map"></div>
+
+            <!-- Results Panel -->
+            <aside class="results-panel" id="resultsPanel">
+                <div class="panel-header">
+                    <h2>Results</h2>
+                </div>
+                <div class="panel-content" id="panelContent">
+                    <p class="info-text">Click on an autonomous community to see detailed results</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Toggle Buttons -->
+        <button class="toggle-btn toggle-btn-legend" id="toggleLegend">
+            <span>📊</span>
+            <span>Parties</span>
+        </button>
+        <button class="toggle-btn toggle-btn-regions" id="toggleRegions">
+            <span>🗺️</span>
+            <span>Regions</span>
+        </button>
+
+        <!-- Legend -->
+        <div class="legend" id="legend">
+            <h3>
+                <span>Parties</span>
+                <button class="close-btn" id="closeLegend">&times;</button>
+            </h3>
+            <div class="legend-items" id="legendItems"></div>
+        </div>
+
+        <!-- Regions List -->
+        <div class="regions-list" id="regionsList">
+            <h3>
+                <span>Regions</span>
+                <button class="close-btn" id="closeRegions">&times;</button>
+            </h3>
+            <div class="regions-list-items" id="regionsListItems"></div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Loading data...</p>
+        </div>
+    </div>
+
+    <!-- MapLibre GL JS Library -->
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+    <!-- Application JS -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/maplibre-map.js"></script>
+    <script src="js/maplibre-app.js"></script>
+    <script src="js/ui-toggle.js"></script>
+</body>
+</html>

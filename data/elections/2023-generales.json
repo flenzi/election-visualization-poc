@@ -1,0 +1,543 @@
+{
+  "election": {
+    "name": "Elecciones Generales 2023",
+    "date": "2023-07-23",
+    "type": "congress",
+    "description": "Congreso de los Diputados - España"
+  },
+  "results": {
+    "ES-AN": {
+      "name": "Andalucía",
+      "turnout": 68.5,
+      "parties": {
+        "PP": {
+          "votes": 2145000,
+          "percentage": 38.2,
+          "seats": 22
+        },
+        "PSOE": {
+          "votes": 1523000,
+          "percentage": 27.1,
+          "seats": 15
+        },
+        "VOX": {
+          "votes": 845000,
+          "percentage": 15.0,
+          "seats": 8
+        },
+        "SUMAR": {
+          "votes": 560000,
+          "percentage": 10.0,
+          "seats": 4
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-AR": {
+      "name": "Aragón",
+      "turnout": 70.2,
+      "parties": {
+        "PP": {
+          "votes": 285000,
+          "percentage": 35.5,
+          "seats": 5
+        },
+        "PSOE": {
+          "votes": 245000,
+          "percentage": 30.5,
+          "seats": 4
+        },
+        "VOX": {
+          "votes": 125000,
+          "percentage": 15.6,
+          "seats": 2
+        },
+        "SUMAR": {
+          "votes": 95000,
+          "percentage": 11.8,
+          "seats": 2
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-AS": {
+      "name": "Asturias",
+      "turnout": 72.1,
+      "parties": {
+        "PSOE": {
+          "votes": 198000,
+          "percentage": 34.2,
+          "seats": 4
+        },
+        "PP": {
+          "votes": 175000,
+          "percentage": 30.3,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 95000,
+          "percentage": 16.4,
+          "seats": 1
+        },
+        "VOX": {
+          "votes": 68000,
+          "percentage": 11.8,
+          "seats": 0
+        }
+      },
+      "winner": "PSOE"
+    },
+    "ES-CB": {
+      "name": "Cantabria",
+      "turnout": 71.5,
+      "parties": {
+        "PP": {
+          "votes": 125000,
+          "percentage": 36.8,
+          "seats": 3
+        },
+        "PSOE": {
+          "votes": 98000,
+          "percentage": 28.8,
+          "seats": 2
+        },
+        "VOX": {
+          "votes": 45000,
+          "percentage": 13.2,
+          "seats": 0
+        },
+        "SUMAR": {
+          "votes": 42000,
+          "percentage": 12.4,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-CM": {
+      "name": "Castilla-La Mancha",
+      "turnout": 69.3,
+      "parties": {
+        "PP": {
+          "votes": 485000,
+          "percentage": 40.2,
+          "seats": 12
+        },
+        "PSOE": {
+          "votes": 425000,
+          "percentage": 35.2,
+          "seats": 9
+        },
+        "VOX": {
+          "votes": 168000,
+          "percentage": 13.9,
+          "seats": 0
+        },
+        "SUMAR": {
+          "votes": 85000,
+          "percentage": 7.0,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-CL": {
+      "name": "Castilla y León",
+      "turnout": 70.8,
+      "parties": {
+        "PP": {
+          "votes": 625000,
+          "percentage": 42.5,
+          "seats": 14
+        },
+        "PSOE": {
+          "votes": 485000,
+          "percentage": 33.0,
+          "seats": 10
+        },
+        "VOX": {
+          "votes": 195000,
+          "percentage": 13.3,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 98000,
+          "percentage": 6.7,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-CT": {
+      "name": "Cataluña",
+      "turnout": 66.8,
+      "parties": {
+        "PSC": {
+          "votes": 1125000,
+          "percentage": 26.5,
+          "seats": 19
+        },
+        "JUNTS": {
+          "votes": 875000,
+          "percentage": 20.6,
+          "seats": 14
+        },
+        "ERC": {
+          "votes": 725000,
+          "percentage": 17.1,
+          "seats": 12
+        },
+        "PP": {
+          "votes": 685000,
+          "percentage": 16.1,
+          "seats": 11
+        },
+        "VOX": {
+          "votes": 385000,
+          "percentage": 9.1,
+          "seats": 6
+        },
+        "SUMAR": {
+          "votes": 325000,
+          "percentage": 7.6,
+          "seats": 4
+        }
+      },
+      "winner": "PSC"
+    },
+    "ES-EX": {
+      "name": "Extremadura",
+      "turnout": 70.5,
+      "parties": {
+        "PP": {
+          "votes": 285000,
+          "percentage": 42.8,
+          "seats": 4
+        },
+        "PSOE": {
+          "votes": 245000,
+          "percentage": 36.8,
+          "seats": 3
+        },
+        "VOX": {
+          "votes": 88000,
+          "percentage": 13.2,
+          "seats": 0
+        },
+        "SUMAR": {
+          "votes": 42000,
+          "percentage": 6.3,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-GA": {
+      "name": "Galicia",
+      "turnout": 67.9,
+      "parties": {
+        "PP": {
+          "votes": 685000,
+          "percentage": 42.1,
+          "seats": 12
+        },
+        "PSOE": {
+          "votes": 485000,
+          "percentage": 29.8,
+          "seats": 7
+        },
+        "SUMAR": {
+          "votes": 195000,
+          "percentage": 12.0,
+          "seats": 2
+        },
+        "BNG": {
+          "votes": 145000,
+          "percentage": 8.9,
+          "seats": 1
+        },
+        "VOX": {
+          "votes": 98000,
+          "percentage": 6.0,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-IB": {
+      "name": "Islas Baleares",
+      "turnout": 68.2,
+      "parties": {
+        "PP": {
+          "votes": 185000,
+          "percentage": 34.2,
+          "seats": 4
+        },
+        "PSOE": {
+          "votes": 165000,
+          "percentage": 30.5,
+          "seats": 3
+        },
+        "VOX": {
+          "votes": 78000,
+          "percentage": 14.4,
+          "seats": 1
+        },
+        "SUMAR": {
+          "votes": 68000,
+          "percentage": 12.6,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-CN": {
+      "name": "Islas Canarias",
+      "turnout": 62.3,
+      "parties": {
+        "PSOE": {
+          "votes": 285000,
+          "percentage": 28.5,
+          "seats": 5
+        },
+        "PP": {
+          "votes": 245000,
+          "percentage": 24.5,
+          "seats": 4
+        },
+        "CC": {
+          "votes": 185000,
+          "percentage": 18.5,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 125000,
+          "percentage": 12.5,
+          "seats": 2
+        },
+        "VOX": {
+          "votes": 98000,
+          "percentage": 9.8,
+          "seats": 1
+        }
+      },
+      "winner": "PSOE"
+    },
+    "ES-RI": {
+      "name": "La Rioja",
+      "turnout": 69.8,
+      "parties": {
+        "PP": {
+          "votes": 78000,
+          "percentage": 42.5,
+          "seats": 2
+        },
+        "PSOE": {
+          "votes": 58000,
+          "percentage": 31.6,
+          "seats": 1
+        },
+        "VOX": {
+          "votes": 25000,
+          "percentage": 13.6,
+          "seats": 1
+        },
+        "SUMAR": {
+          "votes": 18000,
+          "percentage": 9.8,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-MD": {
+      "name": "Madrid",
+      "turnout": 71.2,
+      "parties": {
+        "PP": {
+          "votes": 1685000,
+          "percentage": 40.8,
+          "seats": 21
+        },
+        "PSOE": {
+          "votes": 985000,
+          "percentage": 23.8,
+          "seats": 12
+        },
+        "VOX": {
+          "votes": 585000,
+          "percentage": 14.2,
+          "seats": 7
+        },
+        "SUMAR": {
+          "votes": 565000,
+          "percentage": 13.7,
+          "seats": 7
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-MC": {
+      "name": "Murcia",
+      "turnout": 68.7,
+      "parties": {
+        "PP": {
+          "votes": 385000,
+          "percentage": 42.5,
+          "seats": 6
+        },
+        "PSOE": {
+          "votes": 265000,
+          "percentage": 29.3,
+          "seats": 4
+        },
+        "VOX": {
+          "votes": 165000,
+          "percentage": 18.2,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 68000,
+          "percentage": 7.5,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-NC": {
+      "name": "Navarra",
+      "turnout": 73.5,
+      "parties": {
+        "PSN": {
+          "votes": 98000,
+          "percentage": 27.8,
+          "seats": 2
+        },
+        "BILDU": {
+          "votes": 85000,
+          "percentage": 24.1,
+          "seats": 2
+        },
+        "PP": {
+          "votes": 68000,
+          "percentage": 19.3,
+          "seats": 1
+        },
+        "SUMAR": {
+          "votes": 48000,
+          "percentage": 13.6,
+          "seats": 0
+        },
+        "VOX": {
+          "votes": 38000,
+          "percentage": 10.8,
+          "seats": 0
+        }
+      },
+      "winner": "PSN"
+    },
+    "ES-PV": {
+      "name": "País Vasco",
+      "turnout": 69.4,
+      "parties": {
+        "PNV": {
+          "votes": 385000,
+          "percentage": 31.2,
+          "seats": 6
+        },
+        "BILDU": {
+          "votes": 285000,
+          "percentage": 23.1,
+          "seats": 4
+        },
+        "PSE": {
+          "votes": 245000,
+          "percentage": 19.9,
+          "seats": 4
+        },
+        "PP": {
+          "votes": 165000,
+          "percentage": 13.4,
+          "seats": 3
+        },
+        "SUMAR": {
+          "votes": 98000,
+          "percentage": 7.9,
+          "seats": 1
+        }
+      },
+      "winner": "PNV"
+    },
+    "ES-VC": {
+      "name": "Comunidad Valenciana",
+      "turnout": 68.9,
+      "parties": {
+        "PP": {
+          "votes": 1185000,
+          "percentage": 40.2,
+          "seats": 19
+        },
+        "PSOE": {
+          "votes": 825000,
+          "percentage": 28.0,
+          "seats": 13
+        },
+        "VOX": {
+          "votes": 445000,
+          "percentage": 15.1,
+          "seats": 7
+        },
+        "SUMAR": {
+          "votes": 325000,
+          "percentage": 11.0,
+          "seats": 5
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-CE": {
+      "name": "Ceuta",
+      "turnout": 65.2,
+      "parties": {
+        "PP": {
+          "votes": 18500,
+          "percentage": 45.2,
+          "seats": 1
+        },
+        "PSOE": {
+          "votes": 12500,
+          "percentage": 30.5,
+          "seats": 0
+        },
+        "VOX": {
+          "votes": 6800,
+          "percentage": 16.6,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    },
+    "ES-ML": {
+      "name": "Melilla",
+      "turnout": 64.8,
+      "parties": {
+        "PP": {
+          "votes": 16800,
+          "percentage": 43.8,
+          "seats": 1
+        },
+        "PSOE": {
+          "votes": 11500,
+          "percentage": 30.0,
+          "seats": 0
+        },
+        "VOX": {
+          "votes": 7200,
+          "percentage": 18.8,
+          "seats": 0
+        }
+      },
+      "winner": "PP"
+    }
+  }
+}

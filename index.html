@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results Map - Spain 2023</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .implementations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .card .tech-stack {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .card .features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .card .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .card .features li:last-child {
+            border-bottom: none;
+        }
+
+        .card .features li::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+        }
+
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 1rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .comparison-table td {
+            color: #666;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .implementations {
+                grid-template-columns: 1fr;
+            }
+
+            .info-section {
+                padding: 1.5rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .comparison-table {
+                min-width: 550px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🗳️ Election Results Map</h1>
+            <p>Spain - General Elections 2023</p>
+            <p class="subtitle">Interactive Visualization of Congress of Deputies</p>
+        </div>
+
+        <div class="implementations">
+            <!-- Leaflet Implementation -->
+            <a href="leaflet.html" class="card">
+                <div class="card-icon">🗺️</div>
+                <h2>Leaflet.js</h2>
+                <div class="tech-stack">Leaflet 1.9.4 + GeoJSON</div>
+                <p>Lightweight and fast visualization with the most popular mapping library. Simple, intuitive controls perfect for general use.</p>
+
+                <ul class="features">
+                    <li>Smooth zoom and pan navigation</li>
+                    <li>Informative hover tooltips</li>
+                    <li>Click for detailed region info</li>
+                    <li>Mobile optimized</li>
+                </ul>
+
+                <span class="btn">Open Leaflet Map →</span>
+            </a>
+
+            <!-- MapLibre GL JS Implementation -->
+            <a href="maplibre.html" class="card">
+                <div class="card-icon">🚀</div>
+                <h2>MapLibre GL JS</h2>
+                <div class="tech-stack">MapLibre GL JS 3.6 + GeoJSON</div>
+                <p>Modern WebGL-powered visualization with smooth animations. Vector-based rendering for excellent performance with large datasets.</p>
+
+                <ul class="features">
+                    <li>WebGL hardware acceleration</li>
+                    <li>Smooth animated transitions</li>
+                    <li>Auto-fly to selected region</li>
+                    <li>OpenStreetMap base layer</li>
+                </ul>
+
+                <span class="btn">Open MapLibre Map →</span>
+            </a>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <h3>Implementation Comparison</h3>
+            <p>Both visualizations show the same election data, but use different rendering technologies:</p>
+
+            <div class="table-wrapper">
+                <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Leaflet.js</th>
+                        <th>MapLibre GL JS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Library</strong></td>
+                        <td>Leaflet 1.9.4 (40KB)</td>
+                        <td>MapLibre GL JS 3.6 (700KB)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Format</strong></td>
+                        <td>GeoJSON (659KB)</td>
+                        <td>GeoJSON (659KB)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rendering</strong></td>
+                        <td>Canvas/SVG hybrid</td>
+                        <td>WebGL (GPU accelerated)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Animation</strong></td>
+                        <td>Basic</td>
+                        <td>Smooth, hardware accelerated</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance</strong></td>
+                        <td>Good for medium datasets</td>
+                        <td>Excellent for large datasets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best For</strong></td>
+                        <td>General use, simplicity</td>
+                        <td>Modern apps, performance</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <p style="margin-top: 1rem;">
+                <strong>Technical Note:</strong> MapLibre GL JS uses WebGL for hardware-accelerated rendering, making it
+                ideal for large datasets and smooth animations. Leaflet uses traditional Canvas/SVG rendering which is lighter
+                and more widely compatible.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>
+                POC Project - Election Results Visualization<br>
+                <a href="https://github.com/flenzi/election-visualization-poc" target="_blank">View on GitHub</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
